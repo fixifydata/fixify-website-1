@@ -1,0 +1,7 @@
+{
+  "name": "fixifydata-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "FixifyData single-page website: static HTML + one Vercel function for the contact form.",
+  "engines": { "node": ">=18" }
+}
