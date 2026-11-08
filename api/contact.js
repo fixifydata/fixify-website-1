@@ -22,6 +22,7 @@ module.exports = async (req, res) => {
   const lead = {
     name: String(body.name || '').trim().slice(0, 120),
     email: String(body.email || '').trim().slice(0, 200),
+    company: String(body.company || '').trim().slice(0, 200),
     website: String(body.website || '').trim().slice(0, 300),
     services: Array.isArray(body.services) ? body.services.slice(0, 10).map(s => String(s).slice(0, 60)).join(', ') : '',
     stage: String(body.stage || '').trim().slice(0, 60),
@@ -31,8 +32,10 @@ module.exports = async (req, res) => {
     country: String(req.headers['x-vercel-ip-country'] || '')
   };
 
-  if (!lead.name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(lead.email)) {
-    return res.status(400).json({ ok: false, error: 'Name and a valid email are required.' });
+  lead.consent = body.consent === true ? 'Yes' : 'No';
+
+  if (!lead.name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(lead.email) || !lead.message || lead.consent !== 'Yes') {
+    return res.status(400).json({ ok: false, error: 'Name, a valid email, a message and consent are required.' });
   }
 
   const { SHEETS_WEBHOOK_URL, SHEETS_SECRET } = process.env;

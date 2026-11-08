@@ -1,9 +1,10 @@
 (function () {
   'use strict';
-  var dl = window.dataLayer = window.dataLayer || [];
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   function $(s, c) { return (c || document).querySelector(s); }
   function $$(s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); }
+  // Analytics events go through consent.js; nothing is sent unless the visitor accepted analytics.
+  function track(event, params) { return typeof window.fixifyTrack === 'function' ? window.fixifyTrack(event, params || {}) : false; }
 
   /* ---------- Mobile nav ---------- */
   var menuBtn = $('.menu-btn'), nav = $('#nav');
@@ -16,70 +17,18 @@
   nav.addEventListener('click', function (e) { if (e.target.closest('a')) closeNav(); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeNav(); });
 
-  /* ---------- Logos ----------
-     id: [label, simple-icons slug, brand domain]. Tries Simple Icons CDN, then the brand favicon, then initials. */
-  var LOGOS = {
-    'ga4': ['GA4', 'googleanalytics', 'analytics.google.com'],
-    'gtm': ['Google Tag Manager', 'googletagmanager', 'tagmanager.google.com'],
-    'sgtm': ['Server-side GTM', 'googletagmanager', 'tagmanager.google.com'],
-    'google-ads': ['Google Ads', 'googleads', 'ads.google.com'],
-    'meta': ['Meta Conversions API', 'meta', 'meta.com'],
-    'tiktok': ['TikTok Events API', 'tiktok', 'tiktok.com'],
-    'linkedin': ['LinkedIn Ads', 'linkedin', 'linkedin.com'],
-    'adobe-analytics': ['Adobe Analytics', 'adobe', 'adobe.com'],
-    'adobe-launch': ['Adobe Launch', 'adobe', 'adobe.com'],
-    'tealium': ['Tealium', 'tealium', 'tealium.com'],
-    'amplitude': ['Amplitude', 'amplitude', 'amplitude.com'],
-    'mixpanel': ['Mixpanel', 'mixpanel', 'mixpanel.com'],
-    'posthog': ['PostHog', 'posthog', 'posthog.com'],
-    'appsflyer': ['AppsFlyer', 'appsflyer', 'appsflyer.com'],
-    'segment': ['Segment', 'segment', 'segment.com'],
-    'rudderstack': ['RudderStack', 'rudderstack', 'rudderstack.com'],
-    'cookiebot': ['Cookiebot', 'cookiebot', 'cookiebot.com'],
-    'termly': ['Termly', 'termly', 'termly.io'],
-    'usercentrics': ['Usercentrics', 'usercentrics', 'usercentrics.com'],
-    'onetrust': ['OneTrust', 'onetrust', 'onetrust.com'],
-    'looker': ['Looker Studio', 'looker', 'lookerstudio.google.com'],
-    'powerbi': ['Power BI', 'powerbi', 'powerbi.microsoft.com'],
-    'tableau': ['Tableau', 'tableau', 'tableau.com'],
-    'bigquery': ['BigQuery', 'googlebigquery', 'cloud.google.com'],
-    'snowflake': ['Snowflake', 'snowflake', 'snowflake.com'],
-    'dbt': ['dbt', 'dbt', 'getdbt.com'],
-    'shopify': ['Shopify', 'shopify', 'shopify.com'],
-    'woocommerce': ['WooCommerce', 'woocommerce', 'woocommerce.com'],
-    'bigcommerce': ['BigCommerce', 'bigcommerce', 'bigcommerce.com']
-  };
-  function initials(n) { return n.replace(/[^A-Za-z0-9 ]/g, '').split(' ').map(function (w) { return w[0]; }).join('').slice(0, 2).toUpperCase(); }
-  function logoImg(id) {
-    var t = LOGOS[id];
-    var img = new Image();
-    img.width = 24; img.height = 24; img.alt = ''; img.loading = 'lazy'; img.decoding = 'async';
-    var src = ['https://cdn.simpleicons.org/' + t[1], 'https://www.google.com/s2/favicons?domain=' + t[2] + '&sz=64'], i = 0;
-    img.onerror = function () {
-      i++;
-      if (i < src.length) img.src = src[i];
-      else { var f = document.createElement('span'); f.className = 'logo-fallback'; f.setAttribute('aria-hidden', 'true'); f.textContent = initials(t[0]); img.replaceWith(f); }
-    };
-    img.src = src[0];
-    return img;
-  }
-  // One-row marquee with all tools, duplicated once for a seamless loop
-  var track = $('#marqueeTrack');
-  [false, true].forEach(function (dup) {
-    Object.keys(LOGOS).forEach(function (id) {
-      var li = document.createElement('li');
-      li.className = 'logo-tile';
-      if (dup) li.setAttribute('aria-hidden', 'true');
-      var label = document.createElement('span'); label.textContent = LOGOS[id][0];
-      li.appendChild(logoImg(id)); li.appendChild(label);
-      track.appendChild(li);
+  /* ---------- Platforms carousel: pause control (CSS also pauses on hover/focus) ---------- */
+  var mq = $('#marquee'), mqBtn = $('#marqueeToggle');
+  if (mq && mqBtn) {
+    mqBtn.addEventListener('click', function () {
+      var paused = mq.classList.toggle('is-paused');
+      mqBtn.setAttribute('aria-pressed', String(paused));
+      mqBtn.textContent = paused ? 'Play' : 'Pause';
     });
-  });
-  // Logos inside the service panels
-  $$('[data-logo]').forEach(function (li) { if (LOGOS[li.dataset.logo]) li.insertBefore(logoImg(li.dataset.logo), li.firstChild); });
+  }
 
   /* ---------- Area tabs: problems and services stay in sync ---------- */
-  var AREA_NAMES = { 'ga4': 'GA4 & GTM', 'server-side': 'Server-side & CAPI', 'consent': 'Consent & CMP', 'app': 'App tracking', 'ecommerce': 'Ecommerce', 'data': 'Data & reporting' };
+  var AREA_NAMES = { 'ga4': 'Measure and tags', 'server-side': 'Server-side and conversions', 'consent': 'Consent and privacy', 'app': 'App tracking', 'ecommerce': 'Ecommerce', 'data': 'Data and reporting' };
   var groups = $$('[role="tablist"][data-group]');
   function setArea(area, source) {
     groups.forEach(function (list) {
@@ -93,7 +42,7 @@
         }
       });
     });
-    if (source) dl.push({ event: 'area_select', area: AREA_NAMES[area], area_source: source });
+    if (source) track('tab_select', { tab_area: AREA_NAMES[area], tab_group: source });
   }
   groups.forEach(function (list) {
     var tabs = $$('[role="tab"]', list);
@@ -104,19 +53,42 @@
         var next = vertical ? 'ArrowDown' : 'ArrowRight', prev = vertical ? 'ArrowUp' : 'ArrowLeft', n = null;
         if (e.key === next || e.key === 'ArrowRight' || e.key === 'ArrowDown') n = tabs[(i + 1) % tabs.length];
         if (e.key === prev || e.key === 'ArrowLeft' || e.key === 'ArrowUp') n = tabs[(i - 1 + tabs.length) % tabs.length];
+        if (e.key === 'Home') n = tabs[0];
+        if (e.key === 'End') n = tabs[tabs.length - 1];
         if (n) { e.preventDefault(); setArea(n.dataset.area, list.dataset.group); n.focus(); }
       });
     });
   });
-  // "See how we fix…" and footer links jump to the matching service
+  // "See what we do" and footer service links jump to the matching service (TODO: link to service pages when built)
   $$('[data-goto]').forEach(function (b) {
     b.addEventListener('click', function (e) {
       e.preventDefault();
-      setArea(b.dataset.goto, 'see_fix');
+      setArea(b.dataset.goto, 'goto');
       $('#services').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
       setTimeout(function () { $('#st-' + b.dataset.goto).focus({ preventScroll: true }); }, reduce ? 0 : 600);
     });
   });
+
+  /* ---------- CTA tracking (one handler, one event per click) ---------- */
+  $$('[data-cta]').forEach(function (a) {
+    a.addEventListener('click', function () { track('cta_click', { cta_label: a.textContent.replace(/\s+/g, ' ').trim(), cta_location: a.dataset.cta }); });
+  });
+  $$('[data-outbound]').forEach(function (a) {
+    a.addEventListener('click', function () { track('outbound_click', { link_type: a.dataset.outbound, link_url: a.getAttribute('href') }); });
+  });
+  $$('#faqList details').forEach(function (d) {
+    d.addEventListener('toggle', function () { if (d.open) track('faq_open', { faq_question: $('summary', d).textContent.trim() }); });
+  });
+  var depthDone = {};
+  function onScroll() {
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    if (h <= 0) return;
+    var pct = window.scrollY / h * 100;
+    [50, 90].forEach(function (t) {
+      if (!depthDone[t] && pct >= t && track('scroll_depth', { percent_scrolled: t })) depthDone[t] = true;
+    });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
 
   /* ---------- Lead form ---------- */
   var form = $('#leadForm');
@@ -129,35 +101,55 @@
     progress.style.width = n === 1 ? '50%' : '100%';
     stepLabel.textContent = 'Step ' + n + ' of 2';
   }
-  // "Talk to us about…" buttons preselect that area in the form
+  showStep(1);
+  // "Let’s talk" buttons in the service panels preselect that area in the form
   $$('[data-pick]').forEach(function (b) {
-    b.addEventListener('click', function () {
-      var key = b.dataset.pick, box = $('input[data-key="' + key + '"]', form);
+    b.addEventListener('click', function (e) {
+      e.preventDefault();
+      var box = $('input[data-key="' + b.dataset.pick + '"]', form);
       if (box) box.checked = true;
       showStep(1);
-      dl.push({ event: 'cta_click', cta_location: 'service_' + key });
       $('#contact').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
       setTimeout(function () { if (box) box.focus({ preventScroll: true }); }, reduce ? 0 : 600);
     });
   });
-  $$('[data-cta]').forEach(function (a) {
-    a.addEventListener('click', function () { dl.push({ event: 'cta_click', cta_location: a.dataset.cta }); });
-  });
-  form.addEventListener('change', function () {
-    if (!started) { started = true; dl.push({ event: 'form_start', form_name: 'contact' }); }
-  });
+  function markStart() { if (!started) { started = true; track('form_start', { form_name: 'contact' }); } }
+  form.addEventListener('focusin', markStart);
+  form.addEventListener('change', markStart);
+
   $('#toStep2').addEventListener('click', function () {
     if (!$('input[name="services"]:checked', form)) {
-      err1.textContent = 'Choose at least one area, or pick "Not sure yet".';
+      err1.textContent = 'Choose at least one area, or pick “Not sure yet”.';
       $('input[name="services"]', form).focus();
       return;
     }
     err1.textContent = '';
     showStep(2);
-    dl.push({ event: 'form_step', form_name: 'contact', form_step: 2 });
+    track('form_step_complete', { form_name: 'contact', form_step: 1 });
     form.elements.name.focus();
   });
   $('#backStep').addEventListener('click', function () { showStep(1); });
+
+  // Inline validation
+  var RULES = {
+    name: function (v) { return v.trim() ? '' : 'Enter your name.'; },
+    email: function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()) ? '' : 'Enter a work email, for example jane@company.com.'; },
+    website: function (v) { v = v.trim(); if (!v) return ''; try { var u = new URL(/^https?:\/\//i.test(v) ? v : 'https://' + v); return u.hostname.indexOf('.') > 0 ? '' : 'Enter a valid web address, for example https://yourcompany.com.'; } catch (e) { return 'Enter a valid web address, for example https://yourcompany.com.'; } },
+    message: function (v) { return v.trim() ? '' : 'Tell us briefly what you’re trying to solve.'; },
+    consent: function (v, el) { return el.checked ? '' : 'Tick the box so we can use your details to reply.'; }
+  };
+  function check(name) {
+    var el = form.elements[name], msg = RULES[name](el.value, el), out = $('#e-' + name);
+    out.textContent = msg;
+    if (msg) el.setAttribute('aria-invalid', 'true'); else el.removeAttribute('aria-invalid');
+    return !msg;
+  }
+  Object.keys(RULES).forEach(function (n) {
+    var el = form.elements[n];
+    el.addEventListener('blur', function () { if (el.type !== 'checkbox' && (el.value || el.dataset.touched)) check(n); });
+    el.addEventListener('input', function () { el.dataset.touched = '1'; if (el.getAttribute('aria-invalid')) check(n); });
+    el.addEventListener('change', function () { if (el.type === 'checkbox') check(n); });
+  });
 
   // Attribution captured with every lead
   try {
@@ -171,20 +163,18 @@
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
-    var name = form.elements.name, email = form.elements.email, site = form.elements.website, missing = [];
-    [name, email].forEach(function (f) { f.removeAttribute('aria-invalid'); });
-    if (!name.value.trim()) { missing.push('your name'); name.setAttribute('aria-invalid', 'true'); }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) { missing.push('a valid work email'); email.setAttribute('aria-invalid', 'true'); }
-    if (site.value.trim() && !/^https?:\/\//i.test(site.value.trim())) site.value = 'https://' + site.value.trim();
-    if (missing.length) { err2.textContent = 'Add ' + missing.join(' and ') + ' so we can reply.'; (name.getAttribute('aria-invalid') ? name : email).focus(); return; }
+    var bad = ['name', 'email', 'website', 'message', 'consent'].filter(function (n) { return !check(n); });
+    if (bad.length) { err2.textContent = 'Please fix the highlighted fields.'; form.elements[bad[0]].focus(); return; }
     err2.textContent = '';
+    var site = form.elements.website;
+    if (site.value.trim() && !/^https?:\/\//i.test(site.value.trim())) site.value = 'https://' + site.value.trim();
 
     var services = $$('input[name="services"]:checked', form).map(function (c) { return c.value; });
     var payload = {
-      name: name.value.trim(), email: email.value.trim(), website: site.value.trim(),
-      message: form.elements.message.value.trim(), services: services,
+      name: form.elements.name.value.trim(), email: form.elements.email.value.trim(), company: form.elements.company.value.trim(),
+      website: site.value.trim(), message: form.elements.message.value.trim(), services: services,
       stage: ($('input[name="stage"]:checked', form) || {}).value || '',
-      attribution: form.elements.utm.value, fax: form.elements.fax.value
+      consent: form.elements.consent.checked, attribution: form.elements.utm.value, fax: form.elements.fax.value
     };
     var btn = $('#submitBtn');
     btn.disabled = true; btn.textContent = 'Sending…';
@@ -192,18 +182,25 @@
     fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
       .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
       .then(function () {
-        dl.push({ event: 'generate_lead', form_name: 'contact', lead_services: services.join('|'), lead_stage: payload.stage });
+        track('form_submit', { form_name: 'contact' });
+        track('generate_lead', { form_name: 'contact', lead_services: services.join('|'), lead_stage: payload.stage });
         steps.forEach(function (s) { s.hidden = true; });
         stepLabel.hidden = true; progress.style.width = '100%';
         var done = $('#formDone'); done.hidden = false; done.focus();
       })
       .catch(function () {
-        btn.disabled = false; btn.textContent = 'Request my free call';
-        var body = encodeURIComponent('Areas: ' + services.join(', ') + '\nStage: ' + payload.stage + '\nWebsite: ' + payload.website + '\n\n' + payload.message);
-        err2.innerHTML = 'The form could not send. Email us instead at <a href="mailto:admin@fixifydata.xyz?subject=Free%20call%20request&body=' + body + '">admin@fixifydata.xyz</a>.';
-        dl.push({ event: 'form_error', form_name: 'contact' });
+        btn.disabled = false; btn.textContent = 'Let’s talk';
+        var body = encodeURIComponent('Areas: ' + services.join(', ') + '\nStage: ' + payload.stage + '\nCompany: ' + payload.company + '\nWebsite: ' + payload.website + '\n\n' + payload.message);
+        err2.innerHTML = 'The form couldn’t send. Please email us instead at <a href="mailto:admin@fixifydata.xyz?subject=Let%E2%80%99s%20talk&body=' + body + '">admin@fixifydata.xyz</a>.';
+        track('form_error', { form_name: 'contact' });
       });
   });
 
-  $('#yr').textContent = new Date().getFullYear();
+  /* ---------- Mobile sticky bar: hide while the contact section is on screen ---------- */
+  var sticky = $('#stickyCta'), contact = $('#contact');
+  if (sticky && contact && 'IntersectionObserver' in window) {
+    new IntersectionObserver(function (en) { sticky.classList.toggle('is-hidden', en[0].isIntersecting); }, { threshold: 0.05 }).observe(contact);
+  }
+
+  var yr = $('#yr'); if (yr) yr.textContent = new Date().getFullYear();
 })();

@@ -1,5 +1,5 @@
 /**
- * FixifyData lead form -> Google Sheet (+ email to admin)
+ * Fixify lead form -> Google Sheet (+ email to admin)
  *
  * Setup (once):
  * 1. Open the sheet: https://docs.google.com/spreadsheets/d/1ipzBvGA-goqJi6p6kQ2m6gp-hJ5ykOQ4u19mCYbPVJ0/edit
@@ -18,7 +18,9 @@ const SECRET = 'CHANGE-ME-to-a-long-random-string';
 const NOTIFY_EMAIL = 'admin@fixifydata.xyz';
 
 const HEADERS = ['Submitted at', 'Name', 'Email', 'Website', 'Areas', 'Stage', 'Message',
-                 'Country', 'Attribution', 'User agent'];
+                 'Country', 'Attribution', 'User agent', 'Company', 'Consent'];
+// NOTE: 'Company' and 'Consent' are appended as the last two columns so existing rows stay aligned.
+// If your sheet already has a header row, add these two headings to cells K1 and L1.
 
 function doPost(e) {
   try {
@@ -34,20 +36,22 @@ function doPost(e) {
     }
 
     const row = [new Date(), l.name, l.email, l.website, l.services, l.stage, l.message,
-                 l.country, l.attribution, l.user_agent].map(safe_);
+                 l.country, l.attribution, l.user_agent, l.company, l.consent].map(safe_);
     row[0] = new Date();
     sheet.appendRow(row);
 
     MailApp.sendEmail({
       to: NOTIFY_EMAIL,
       replyTo: l.email,
-      subject: 'New FixifyData lead: ' + l.name + ' (' + (l.services || 'General') + ')',
+      subject: 'New Fixify lead: ' + l.name + ' (' + (l.services || 'General') + ')',
       body: [
         'Name: ' + l.name,
         'Email: ' + l.email,
+        'Company: ' + (l.company || '-'),
         'Website: ' + (l.website || '-'),
         'Areas: ' + (l.services || '-'),
         'Stage: ' + (l.stage || '-'),
+        'Agreed to privacy policy: ' + (l.consent || '-'),
         '',
         'Message:',
         l.message || '-',
