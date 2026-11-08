@@ -44,7 +44,7 @@ GTM (`GTM-WX7FZ79N`) loads **only after a visitor accepts analytics**. Consent M
 - The platform carousel and the FAQ are plain HTML in `index.html`. If you edit the FAQ, update the `FAQPage` JSON-LD in the `<head>` to match word for word.
 - Service links all go to `#services` for now (`TODO: link to service pages when built`).
 - Team and Proof sections are commented out in `index.html` until real material exists.
-- Platform logos: add an official SVG as `assets/logos/<id>.svg` and swap the two-letter tile for an `<img>`.
+- Carousel logos live in `assets/logos/carousel/<id>.webp` (trimmed, 96px high). To add one, copy a `<li class="logo-tile">` in `index.html`, set `width`/`height` to the image's display size, and keep the platform name in the hidden `<span class="sr">` so the text stays in the HTML.
 
 ## After launch
 - Search Console: verify the domain, submit `https://fixifydata.xyz/sitemap.xml`, run URL Inspection on `/`.

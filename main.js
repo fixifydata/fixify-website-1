@@ -17,16 +17,6 @@
   nav.addEventListener('click', function (e) { if (e.target.closest('a')) closeNav(); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeNav(); });
 
-  /* ---------- Platforms carousel: pause control (CSS also pauses on hover/focus) ---------- */
-  var mq = $('#marquee'), mqBtn = $('#marqueeToggle');
-  if (mq && mqBtn) {
-    mqBtn.addEventListener('click', function () {
-      var paused = mq.classList.toggle('is-paused');
-      mqBtn.setAttribute('aria-pressed', String(paused));
-      mqBtn.textContent = paused ? 'Play' : 'Pause';
-    });
-  }
-
   /* ---------- Area tabs: problems and services stay in sync ---------- */
   var AREA_NAMES = { 'ga4': 'Measure and tags', 'server-side': 'Server-side and conversions', 'consent': 'Consent and privacy', 'app': 'App tracking', 'ecommerce': 'Ecommerce', 'data': 'Data and reporting' };
   var groups = $$('[role="tablist"][data-group]');

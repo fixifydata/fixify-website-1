@@ -38,7 +38,7 @@
 | Hero strike line | Your dashboards are probably fine. | unchanged |
 | Hero subcopy | GA4, Google Tag Manager, server-side tagging, … Audited, fixed and documented by senior specialists who have built these setups many times. … | Web, app and ecommerce tracking, consent and data connections. Designed, fixed and documented by senior specialists. Plain English. No rebuild unless you need one. |
 | Hero card label / caption | Example report after a FixifyData fix | "Example" tag on the card; caption "Example only. Not a real client result." Check names now: Measure and tags, Server-side and conversions, Consent and privacy, App tracking, Ecommerce, Data and reporting |
-| Carousel | Tools and technologies (built by JavaScript) | Platforms we work with (real HTML list, duplicate `aria-hidden`, CSS animation ~55s, pause button, reduced-motion fallback). GA4 moved from first to tenth |
+| Carousel | Tools and technologies (built by JavaScript) | Platforms we work with (real HTML list with your supplied logo images and the name as hidden text, duplicate `aria-hidden`, CSS animation ~55s, pauses on hover/focus, no pause button, reduced-motion fallback). GA4 moved from first to tenth |
 | New | – | What working looks like. · Where most teams find us. (Wrong. / Unclear. / Missing.) |
 | When to call us | When should you call us? | unchanged. Tabs: GA4 & GTM → **Measure and tags**; Server-side & CAPI → Server-side and conversions; Consent & CMP → Consent; Apps; Ecommerce; Data and reporting |
 | We deliver (first card) | A GA4 and GTM audit and fix, with any remaining gap explained and documented. | The cause found and fixed, checked against your real orders, with any remaining gap explained and documented. |

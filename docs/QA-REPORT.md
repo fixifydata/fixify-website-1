@@ -45,6 +45,6 @@ In `docs/qa/` (WebP): mobile hero with cookie banner, mobile menu, platforms and
 
 ## Known limits
 
-- Platform logos: 14 real vector marks; the rest are two-letter tiles until official files are supplied.
+- Platform logos: the carousel uses 22 supplied images; dbt has no logo yet. There is no pause button, by request.
 - `/privacy-policy` and `/cookie-policy` resolve without a trailing slash (`cleanUrls` is on); canonical URLs and the sitemap use that form.
 - Legal pages are drafts and carry visible placeholders by design.
