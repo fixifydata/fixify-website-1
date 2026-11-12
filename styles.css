@@ -486,17 +486,38 @@ html.cc-open .sticky-cta{display:none!important}
 .band{margin-top:56px;background:var(--deep);color:var(--white);border-radius:18px;padding:clamp(28px,4vw,46px);display:flex;flex-wrap:wrap;gap:20px;align-items:center;justify-content:space-between}
 .band h2{font-size:clamp(26px,3.4vw,38px);font-weight:800;color:var(--white);max-width:20ch}
 
-/* Hub diagram (service visuals) */
-.hubg{display:grid;grid-template-columns:1fr 1.5fr;gap:clamp(20px,4vw,40px);align-items:center;margin-top:34px;background:var(--white);border:1.5px solid var(--navy);border-radius:6px;padding:clamp(20px,3vw,32px)}
-.hw{font-family:var(--display);font-weight:700;font-size:clamp(22px,2.6vw,30px);line-height:1.2;letter-spacing:-.01em;margin-bottom:12px}
-.hy{color:var(--muted)}
-.hubg svg{width:100%;height:auto;display:block}
-.hubg svg text{fill:var(--navy);font:600 14px var(--body)}
-.hubg svg .hc{fill:var(--navy)}
-.hn{fill:var(--paper);stroke:var(--line);stroke-width:1.5}
-.hi{fill:#FFF6D6;stroke:var(--navy);stroke-width:2}
-.hl{stroke:#8793B8;stroke-width:1.8;fill:none;opacity:.6}
-.hd{fill:var(--ember)}
+/* Flow diagrams (service visuals): logos + plain-English steps */
+.hw{font-family:var(--display);font-weight:700;font-size:clamp(22px,2.6vw,30px);line-height:1.25;letter-spacing:-.01em;max-width:34ch;margin-top:18px}
+.hy{color:var(--muted);max-width:60ch;margin-top:10px}
+.flowfig{margin:30px 0 0;background:var(--white);border:1.5px solid var(--navy);border-radius:6px;padding:clamp(18px,3vw,34px)}
+.flow-title{font-family:var(--display);font-weight:800;font-size:clamp(20px,2.4vw,26px);letter-spacing:-.01em;margin-bottom:22px}
+.flane+.flane{margin-top:30px;padding-top:26px;border-top:1.5px dashed var(--line)}
+.flabel{font-weight:600;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.flow{display:flex;align-items:stretch}
+.fstep{flex:1 1 0;min-width:0;display:flex;flex-direction:column;gap:12px}
+.fstep.wide{flex:1.8 1 0}
+.fh{display:flex;align-items:center;gap:10px;font-weight:600;font-size:14.5px;line-height:1.25;min-height:34px}
+.fnum{flex:none;width:26px;height:26px;border-radius:50%;background:var(--gold);color:var(--navy);display:grid;place-items:center;font-weight:700;font-size:13px}
+.fnodes{display:grid;gap:8px}
+.fnodes.two{grid-template-columns:1fr 1fr}
+.fnode{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;background:var(--white);border:1px solid var(--line);border-radius:12px;min-height:54px;padding:4px 8px}
+.fnode .fi{display:block;width:120px;max-width:100%;height:auto}
+.fnode small{font-size:12px;color:var(--muted);text-align:center;line-height:1.3}
+.fnode.ft{flex-direction:row;flex-wrap:wrap;gap:2px 8px;background:var(--paper)}
+.fnode.ft b{font-family:var(--display);font-size:15px;font-weight:700}
+.fnode.ft small{flex-basis:100%}
+.fnote{font-size:14px;color:var(--muted);line-height:1.45;margin-top:auto}
+.farr{flex:0 0 46px;position:relative;align-self:center;height:2px;margin:0 3px;background:var(--navy)}
+.farr::after{content:"";position:absolute;right:-1px;top:-4px;width:9px;height:9px;border-top:2px solid var(--navy);border-right:2px solid var(--navy);transform:rotate(45deg)}
+.farr i{position:absolute;top:-3px;left:0;width:8px;height:8px;border-radius:50%;background:var(--ember);animation:fdot 2.4s ease-in-out infinite}
+@keyframes fdot{0%{transform:translateX(0);opacity:0}15%{opacity:1}85%{opacity:1}100%{transform:translateX(36px);opacity:0}}
+.farr.broken{background:repeating-linear-gradient(90deg,#B3261E 0 6px,transparent 6px 10px)}
+.farr.broken::after{content:"\2715";border:0;transform:none;width:auto;height:auto;right:auto;left:50%;top:-13px;margin-left:-6px;font-size:15px;line-height:1;font-weight:700;color:#B3261E;background:var(--white);padding:0 2px}
+.farr.broken i{display:none}
+/* return path */
+.fback{margin-top:18px;display:flex;gap:10px;align-items:center;border:1.5px dashed var(--ember);border-radius:12px;padding:10px 16px;font-size:14.5px;font-weight:600;color:var(--navy);background:#FFF9E8}
+.fback span{font-size:20px;color:var(--ember-ink)}
+figcaption{margin-top:22px;padding-top:16px;border-top:1px solid var(--line);font-weight:600;color:var(--navy)}
 
 /* 404 */
 .nf{min-height:62vh;display:grid;place-items:center;text-align:center;padding:64px var(--gutter);background:var(--deep);color:var(--white)}
@@ -506,7 +527,6 @@ html.cc-open .sticky-cta{display:none!important}
 
 @media (max-width:1024px){
   .pgrid,.related{grid-template-columns:repeat(2,1fr)}
-  .hubg{grid-template-columns:1fr}
 }
 @media (max-width:860px){
   .nav{max-height:calc(100vh - 72px);overflow-y:auto}
@@ -531,10 +551,29 @@ html.cc-open .sticky-cta{display:none!important}
   .svc-actions .btn{width:100%}
 }
 @media (prefers-reduced-motion:reduce){
-  .hd{display:none}
+  .farr i{display:none}
 }
 html.menu-open .sticky-cta{display:none!important}
 
 .contact-grid>*{min-width:0}
 .pick span{overflow-wrap:anywhere}
 @media (max-width:420px){.pick-grid{grid-template-columns:1fr}}
+@media (max-width:860px){
+  .flow{flex-direction:column}
+  .fstep.wide{flex:1 1 auto}
+  .farr{flex:0 0 38px;width:2px;height:38px;align-self:flex-start;margin:8px 0 8px 12px}
+  .farr::after{right:auto;top:auto;bottom:-1px;left:-4px;transform:rotate(135deg)}
+  .farr i{left:-3px;top:0;animation-name:fdotv}
+  .farr.broken{background:repeating-linear-gradient(180deg,#B3261E 0 6px,transparent 6px 10px)}
+  .farr.broken::after{left:-6px;bottom:auto;top:50%;margin:-8px 0 0}
+  .fnote{margin-top:0}
+}
+@keyframes fdotv{0%{transform:translateY(0);opacity:0}15%{opacity:1}85%{opacity:1}100%{transform:translateY(30px);opacity:0}}
+
+.fnode.ft img{width:30px;height:30px;object-fit:contain}
+
+/* Skip rendering work for below-the-fold service-page sections until they near the viewport */
+.svc-page .sec{content-visibility:auto;contain-intrinsic-size:auto 640px}
+.svc-page .sec:first-of-type{content-visibility:visible}
+/* Cookie banner: system font so it never reflows when web fonts load */
+.cc,.cc .cc-title,.cc .btn{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}

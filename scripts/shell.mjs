@@ -1,9 +1,9 @@
-import { S, G, by, url, ORDER, HUB } from './data.mjs';
+import { S, G, by, url, ORDER, HUB, FLOW, LNAME } from './data.mjs';
 export const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const BASE = 'https://fixifydata.xyz';
 
 // ---- logos ----
-const WM = { 'GA4': 'ga4', 'Google Tag Manager': 'gtm', 'Adobe Analytics': 'adobe-analytics', 'Tealium': 'tealium', 'Firebase': 'firebase', 'AppsFlyer': 'appsflyer', 'Amplitude': 'amplitude', 'Mixpanel': 'mixpanel', 'PostHog': 'posthog', 'Shopify': 'shopify', 'RudderStack': 'rudderstack', 'Segment': 'segment', 'Cookiebot': 'cookiebot', 'OneTrust': 'onetrust', 'Google Ads': 'google-ads', 'Meta Ads': 'meta', 'TikTok Ads': 'tiktok', 'LinkedIn Ads': 'linkedin', 'Looker Studio': 'looker', 'Power BI': 'powerbi', 'BigQuery': 'bigquery', 'Snowflake': 'snowflake' };
+const WM = { 'GA4': 'ga4', 'Google Tag Manager': 'gtm', 'Adobe Analytics': 'adobe-analytics', 'Tealium': 'tealium', 'Firebase': 'firebase', 'AppsFlyer': 'appsflyer', 'Amplitude': 'amplitude', 'Mixpanel': 'mixpanel', 'PostHog': 'posthog', 'Shopify': 'shopify', 'RudderStack': 'rudderstack', 'Segment': 'segment', 'Cookiebot': 'cookiebot', 'OneTrust': 'onetrust', 'Google Ads': 'google-ads', 'Meta Ads': 'meta', 'TikTok Ads': 'tiktok', 'LinkedIn Ads': 'linkedin', 'Looker Studio': 'looker', 'Power BI': 'powerbi', 'BigQuery': 'bigquery', 'Snowflake': 'snowflake', 'Google Cloud': 'google-cloud', 'Adobe Launch': 'adobe', 'Usercentrics': 'usercentrics', 'Termly': 'termly', 'Tableau': 'tableau', 'Snapchat Ads': 'snapchat', 'Pinterest Ads': 'pinterest' };
 const ICON = { 'WooCommerce': 'woocommerce', 'BigCommerce': 'bigcommerce', 'Server-side GTM': 'sgtm' };
 export const wmImg = (id, cls, w, h) => `<img class="${cls}" src="/assets/logos/carousel/${id}.webp" alt="" width="${w}" height="${h}" loading="lazy" decoding="async">`;
 // A tool chip: the supplied wordmark when we have one, else icon + name, else the name.
@@ -136,11 +136,25 @@ ${S.map(s => `      <a href="${url(s[0])}">${esc(s[1])}</a>`).join('\n')}
 export const scripts = (extra = '') => `<script src="/consent.js" defer></script>
 <script src="/site.js" defer></script>${extra}`;
 
-// ---- hub diagram (animated) ----
-export function hub(id) {
-  const d = HUB[id], Y = [45, 115, 185];
-  const nd = (x, y, t) => `<rect class="hn" x="${x}" y="${y - 20}" width="110" height="40" rx="9"/><text x="${x + 55}" y="${y}" text-anchor="middle" dominant-baseline="central">${esc(t)}</text>`;
-  const P = ['M120 45C205 45 235 115 265 115L395 115C425 115 455 45 540 45', 'M120 115H265L395 115H540', 'M120 185C205 185 235 115 265 115L395 115C425 115 455 185 540 185'];
-  return `<div class="hubg"><div><p class="hw">${esc(d.w)}</p><p class="hy">${esc(d.y)}</p></div><svg viewBox="0 0 660 230" role="img" aria-label="Diagram: ${esc(d.l.join(', '))} pass through ${esc(d.c)} to ${esc(d.r.join(', '))}."><path class="hl" d="M120 45C205 45 235 115 265 115"/><path class="hl" d="M120 115H265"/><path class="hl" d="M120 185C205 185 235 115 265 115"/><path class="hl" d="M395 115C425 115 455 45 540 45"/><path class="hl" d="M395 115H540"/><path class="hl" d="M395 115C425 115 455 185 540 185"/>${P.map((p, k) => `<circle class="hd" r="5"><animateMotion dur="4s" begin="${k * 1.3}s" repeatCount="indefinite" path="${p}"/></circle>`).join('')}${d.l.map((t, k) => nd(10, Y[k], t)).join('')}<rect class="hn hi" x="245" y="88" width="170" height="54" rx="12"/><text class="hc" x="330" y="115" text-anchor="middle" dominant-baseline="central">${esc(d.c)}</text>${d.r.map((t, k) => nd(540, Y[k], t)).join('')}</svg></div>`;
+// ---- explanatory flow diagram (logos + plain-English steps) ----
+export function flow(id) {
+  const f = FLOW[id], h = HUB[id];
+  let n = 0;
+  const node = x => x.l
+    ? `<div class="fnode"><img class="fi" src="/assets/logos/carousel/${x.l}.webp" alt="${esc(LNAME[x.l])}" width="120" height="33" loading="lazy" decoding="async">${x.s ? `<small>${esc(x.s)}</small>` : ''}</div>`
+    : x.i
+      ? `<div class="fnode ft"><img src="/assets/logos/${x.i}.svg" alt="" width="20" height="20" loading="lazy"><b>${esc(x.t)}</b></div>`
+      : `<div class="fnode ft"><b>${esc(x.t)}</b>${x.s ? `<small>${esc(x.s)}</small>` : ''}</div>`;
+  const lane = L => {
+    const parts = [];
+    L.steps.forEach((s, k) => {
+      n += 1;
+      parts.push(`<div class="fstep${s.wide ? ' wide' : ''}"${s.w ? ` style="flex-grow:${s.w}"` : ''}><p class="fh"><span class="fnum">${n}</span>${esc(s.h)}</p><div class="fnodes${s.n.length >= 4 ? ' two' : ''}">${s.n.map(node).join('')}</div><p class="fnote">${esc(s.note)}</p></div>`);
+      if (k < L.steps.length - 1) parts.push(`<div class="farr${s.broken ? ' broken' : ''}" aria-hidden="true"><i></i></div>`);
+    });
+    return `<div class="flane">${L.label ? `<p class="flabel">${esc(L.label)}</p>` : ''}<div class="flow">${parts.join('')}</div>${L.back ? `<p class="fback"><span aria-hidden="true">↩</span> ${esc(L.back)}</p>` : ''}</div>`;
+  };
+  return `<p class="hw">${esc(h.w)}</p><p class="hy">${esc(h.y)}</p>
+    <figure class="flowfig"><p class="flow-title">${esc(f.intro)}</p>${f.lanes.map(lane).join('')}<figcaption>${esc(f.foot)}</figcaption></figure>`;
 }
 export { S, G, by, url, ORDER };

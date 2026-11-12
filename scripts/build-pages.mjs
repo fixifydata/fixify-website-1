@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { head, header, footer, scripts, esc, S, by, url, ORDER, hub, chips } from './shell.mjs';
+import { head, header, footer, scripts, esc, S, by, url, ORDER, flow, chips } from './shell.mjs';
 import { P2, F, SLUG } from './data.mjs';
 const REPO = fileURLToPath(new URL('..', import.meta.url)).replace(/[\/]$/, '');
 const wrap = (hd, hdr, main, extra) => `${hd}\n<body>\n${hdr}\n${main}\n${footer()}\n${scripts(extra || '')}\n</body>\n</html>\n`;
@@ -110,7 +110,7 @@ function servicePage(id) {
 </section>
 
 <section class="sec" aria-labelledby="h-what">
-  <div class="wrap"><h2 id="h-what" class="h2">What it is, and why it matters.</h2>${hub(id)}</div>
+  <div class="wrap"><h2 id="h-what" class="h2">What it is, and why it matters.</h2>${flow(id)}</div>
 </section>
 
 <section class="sec alt" aria-labelledby="h-familiar">

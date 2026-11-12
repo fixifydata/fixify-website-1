@@ -113,10 +113,8 @@
       if (t) { e.preventDefault(); opener = t; openBanner(true); }
     });
     if (state) { apply(state.analytics, false); return; }
-    // Wait for web fonts so the banner doesn't resize (and shift the layout) when they arrive.
-    var shown = false;
-    function show() { if (!shown) { shown = true; openBanner(false); } }
-    if (doc.fonts && doc.fonts.ready) { doc.fonts.ready.then(show); setTimeout(show, 1500); } else { show(); }
+    // The banner uses a system font (see styles.css), so it can appear immediately without shifting the layout.
+    openBanner(false);
   }
   if (doc.readyState === 'loading') doc.addEventListener('DOMContentLoaded', init); else init();
 })();
