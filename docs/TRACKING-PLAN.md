@@ -11,15 +11,17 @@
 
 ## Events (dataLayer)
 
+All events are sent by `site.js` (every page) and `main.js` (homepage form and tabs), through `consent.js`. They fire on service pages as well as the homepage.
+
 | Event | Fires when | Parameters | Once per… |
 |---|---|---|---|
-| `cta_click` | Any **Let’s talk** button (nav, hero, sections, service panels, footer, mobile bar) or "Ask us." | `cta_label`, `cta_location` (`nav`, `hero`, `finds`, `service_<area>`, `involved`, `process`, `footer`, `sticky`, `services_other`) | click |
+| `cta_click` | Any **Let’s talk** button (nav, hero, sections, service panels, footer, mobile bar) or "Ask us." | `cta_label`, `cta_location` (`nav`, `hero`, `finds`, `service_<id>`, `involved`, `process`, `footer`, `sticky`, `services_other`, and on service pages `service_page_hero`, `service_page_platforms`, `service_page_band`) | click |
 | `form_start` | First focus or change inside the form | `form_name: contact` | page view |
 | `form_step_complete` | "Next" succeeds (step 1 done) | `form_name`, `form_step: 1` | step completion |
 | `form_submit` | Server accepted the submission | `form_name` | successful submit |
 | `generate_lead` | Same moment as `form_submit` (GA4 recommended event) | `form_name`, `lead_services` (pipe-separated), `lead_stage` | successful submit |
 | `form_error` | Submission failed (email fallback shown) | `form_name` | failure |
-| `tab_select` | A tab is chosen by the visitor (problem tabs, service tabs, or a "See what we do"/footer link) | `tab_area`, `tab_group` (`problems`, `services`, `goto`) | selection |
+| `tab_select` | A tab is chosen by the visitor (the "When should you call us?" tabs or the "What we do" tabs) | `tab_area`, `tab_group` (`problems`, `services`) | selection |
 | `faq_open` | A FAQ item is opened | `faq_question` | open |
 | `outbound_click` | LinkedIn or email link clicked | `link_type` (`linkedin`, `email`), `link_url` | click |
 | `scroll_depth` | Page scrolled to 50% and 90% | `percent_scrolled` (`50`, `90`) | each threshold, once |

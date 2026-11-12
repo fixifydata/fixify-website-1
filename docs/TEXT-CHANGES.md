@@ -59,3 +59,19 @@
 | 404 | Page not found \| FixifyData | Page not found \| Fixify, with links to home and #contact |
 
 Typographic punctuation (’ “ ”) is used throughout. Plain-English glosses were added at first use of technical terms (tag manager, data layer, container, server-side, Conversion API, CMP, Consent Mode, SDK, dbt, warehouse, CDP).
+
+
+## Multi-page update (2026-11-12)
+
+| Where | Before | After |
+|---|---|---|
+| Site structure | One page | Homepage plus 7 service pages (`/services/analytics-and-tags`, `app-tracking`, `ecommerce-tracking`, `server-side-tracking`, `consent-and-privacy`, `ad-platforms`, `data-and-reporting`), laid out like the prototype: hero, animated visual, "Sound familiar?", "What we do", "What you get", platforms (logos), "How we work", illustrative example, "What we need from you", questions, related, closing band |
+| Header | What we do · How it works · Sectors · FAQ · Let’s talk | **Services ▾** (mega menu: Measure / Control / Connect and decide, each service with a one-line outcome, plus "All services") · How it works · Sectors · FAQ · Let’s talk. Same header on every page |
+| Services | Six: Measure and tags, Server-side and conversions, Consent and privacy, App tracking, Ecommerce, Data and reporting | Seven, as in the prototype: Analytics and tag management, App tracking, Ecommerce tracking, Server-side tracking, Consent and privacy, **Ad platforms (new)**, Data and reporting. Tab labels, panels, form options, footer and JSON-LD all follow |
+| "See what we do" links | → #services | → the matching service page |
+| "What we do" panels | Buttons: Let’s talk | **Let’s talk** (preselects the area) plus "Explore <service>" link to the page. Tools shown as logos |
+| Logo bar heading | Platforms we work with | **Tools we work with** (pill heading on the top edge of a full-width white bar) |
+| Logo bar | Tiles with icon and text, partly monograms; pause button | The 22 supplied logos, no tiles, all the same size and resolution; no pause button |
+| Footer "What we do" | six links to #services | seven links to the service pages |
+| 404, privacy, cookie pages | Simple header | Same header and footer as the rest of the site |
+| Sitemap | 3 URLs | 10 URLs |

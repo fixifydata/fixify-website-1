@@ -1,50 +1,43 @@
 # QA report
 
-Run on 2026-11-08 against a local server (static files with Vercel-style clean URLs and the real `api/contact.js`), in headless Microsoft Edge 156. **Not tested against production**: Vercel headers/redirects, real email delivery and the live GTM container are called out below.
+Run on 2026-11-12 against a local server (static files with Vercel-style clean URLs and the real `api/contact.js`), in headless Microsoft Edge 156. **Not tested against production**: Vercel headers and redirects, real email delivery and the live GTM container are called out below.
 
 ## Lighthouse (local, no CDN or compression, so production numbers may differ slightly)
 
-| Page | Preset | Performance | Accessibility | Best practices | SEO | LCP | CLS | TBT |
-|---|---|---|---|---|---|---|---|---|
-| `/` | mobile | 99 | 100 | 100 | 100 | 1.7 s | 0 | 0 ms |
-| `/` | desktop | 100 | 100 | 100 | 100 | 0.6 s | 0.001 | 0 ms |
-| `/privacy-policy` | mobile | 100 | 100 | 100 | 100 | 1.4 s | 0.004 | 0 ms |
-| `/cookie-policy` | mobile | 100 | 100 | 100 | 100 | 1.4 s | 0.006 | 0 ms |
+| Page | Preset | Performance | Accessibility | Best practices | SEO | LCP | CLS |
+|---|---|---|---|---|---|---|---|
+| `/` | mobile | 98 | 100 | 100 | 100 | 1.8 s | 0 |
+| `/` | desktop | 100 | 100 | 100 | 100 | 0.5 s | 0.001 |
+| `/services/ad-platforms` | mobile | 99 | 100 | 100 | 100 | 1.6 s | 0 |
+| `/services/consent-and-privacy` | desktop | 100 | 100 | 100 | 100 | 0.5 s | 0.011 |
 
-Notes: the first desktop run scored Performance 89 because the cookie banner resized when the web fonts arrived (CLS 0.23). The banner now waits for fonts, which fixed it. Lighthouse needed a small `URL.parse` shim to run under Node 21; that affects the tool, not the site.
+The earlier single-page build also scored 100 on both legal pages. Lighthouse needs a small `URL.parse` shim to run under Node 21; that affects the tool, not the site.
 
-## Form: end to end
+## Automated checks
 
-Tested on a 1280px desktop and a 390px mobile viewport (touch emulation). **Passed on both**:
+- **Pages (132 checks, 0 failures)** across the homepage, all 7 service pages and both policy pages: status 200, no console errors or failed requests, one H1, no skipped heading levels, valid JSON-LD, title 60 characters or fewer, canonical set, images have alt text, no "audit" or retired button labels, header nav reads How it works / Sectors / FAQ.
+- **Header:** the Services dropdown opens on click, lists the 7 services plus "All services", marks the current page, closes with Escape and outside click. Mobile menu opens, the Services accordion opens, the sticky bar hides while the menu is open, and a chosen service loads.
+- **Logo bar:** 22 logos plus an `aria-hidden` duplicate, every logo displayed at the same size (160×44) from files of the same resolution (400×110), heading "Tools we work with", no pause button.
+- **Service CTAs:** "Let’s talk" on a service page lands on `/?area=<service>#contact` with that area ticked in the form.
+- **Form, consent and analytics (65 checks, 0 failures)** on desktop and a 390px mobile viewport: inline validation, thank-you state, webhook payload, honeypot; no GTM and no events before consent; each event fires once per action; withdrawing consent stops events.
+- **Links and layout:** 705 links and assets checked across the homepage, service pages, policy pages and 404: nothing broken (the canonical URLs point at the live domain by design). No horizontal scroll at 320, 375, 390, 768, 1024 and 1440px. No tap target under 44px.
 
-- Step 1 "Next" blocks with an error if nothing is picked; step label reads "Step 1 of 2" then "Step 2 of 2".
-- Submitting step 2 empty shows inline errors for name, email, message and consent, and moves focus to the first invalid field.
-- A valid submission reaches `/api/contact`, which forwards a lead containing company, website (normalised to `https://acme.com`), areas, stage and the consent flag to the webhook. The thank-you message appears, is focused and says what happens next.
-- The honeypot field returns success but stores nothing. A request without consent or message is rejected with HTTP 400.
+Issues found and fixed during this round: the Services dropdown closed itself when clicked on desktop (hover opens it, then the click toggled it shut); the sticky bar covered the bottom of the open mobile menu; the longer service names in the form caused a 1px sideways overflow at 320px; the centre label in the hub diagrams overflowed its box and the animated dots drew over it.
 
-**Not verified:** actual email arriving at admin@fixifydata.xyz. The webhook in this test was a local stand-in for the Google Apps Script. Email delivery depends on the Vercel env vars and the redeployed Apps Script (see `REPLACE-BEFORE-LAUNCH.md`). Please send one real test submission after deploying.
+## Not verified
 
-## Consent and analytics
-
-65 automated checks passed (0 failures); see `TRACKING-PLAN.md` for the detail. Highlights: no GTM request and no events before consent; Reject keeps it that way and is remembered; Accept loads GTM once; every event fires once per action; withdrawing consent stops events.
-
-## Initial HTML (what crawlers get without running JavaScript)
-
-Fetched the raw response of `/` and confirmed it contains: the 24-platform carousel list, all six problem tabs and service panels, the Plan/Build/Support section, sectors, all 8 FAQ answers and the JSON-LD. The only things JavaScript adds are interactions (tabs, form steps, banner). No "audit", "FixifyData", "Book a free", "See what we fix", "See how we fix" or "Start with step 1" appears in the page. FAQ JSON-LD was compared to the visible FAQ and matches exactly. One H1, no skipped heading levels, every image has an `alt` attribute. **Google Search Console URL Inspection was not run** (needs the deployed site).
-
-## Links and layout
-
-- 159 links and assets checked across `/`, `/privacy-policy`, `/cookie-policy` and the 404 page: no broken anchors or missing files. (The three canonical URLs point at the live domain by design.)
-- No horizontal scroll at 320, 375, 390, 768, 1024 and 1440px.
-- No tap target under 44px at those widths (nav links and logo were fixed during QA).
-- Mobile sticky "Let’s talk" bar hides while the contact section is on screen and while the cookie banner is open; the page has bottom padding so it never covers content.
+- **Email delivery** to admin@fixifydata.xyz. The webhook in these tests was a local stand-in for the Google Apps Script. Send one real test submission after deploying (see `REPLACE-BEFORE-LAUNCH.md`).
+- **The live GTM container** (the GA4 tag and triggers still have to be created; see `TRACKING-PLAN.md`).
+- **Google Search Console URL Inspection** (needs the deployed site).
+- **Vercel behaviour** for the new `/services/<name>` routes, the preview-domain redirect and clean-URL redirects.
 
 ## Screenshots
 
-In `docs/qa/` (WebP): mobile hero with cookie banner, mobile menu, platforms and "What working looks like", form step 2, 404; desktop services, involved, cookie preferences, contact.
+In `docs/qa/` (WebP): desktop logo bar, Services dropdown, homepage "What we do" with logos, service page top, service page visual (hub diagram), full service page; mobile logo bar, mobile service page, mobile menu with the Services accordion open.
 
 ## Known limits
 
-- Platform logos: the carousel uses 22 supplied images; dbt has no logo yet. There is no pause button, by request.
-- `/privacy-policy` and `/cookie-policy` resolve without a trailing slash (`cleanUrls` is on); canonical URLs and the sitemap use that form.
+- The logo bar uses the 22 images supplied. dbt and Server-side GTM have no supplied logo, so they appear as text chips in the service sections only.
+- There is no pause button on the logo bar (removed on request). It still pauses on hover and keyboard focus and stops for visitors who prefer reduced motion. WCAG 2.2.2 expects a pause control for movement longer than 5 seconds.
+- Pages resolve without a trailing slash (`cleanUrls` is on); canonical URLs and the sitemap use that form.
 - Legal pages are drafts and carry visible placeholders by design.

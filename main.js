@@ -6,19 +6,8 @@
   // Analytics events go through consent.js; nothing is sent unless the visitor accepted analytics.
   function track(event, params) { return typeof window.fixifyTrack === 'function' ? window.fixifyTrack(event, params || {}) : false; }
 
-  /* ---------- Mobile nav ---------- */
-  var menuBtn = $('.menu-btn'), nav = $('#nav');
-  function closeNav() { nav.classList.remove('open'); menuBtn.setAttribute('aria-expanded', 'false'); menuBtn.setAttribute('aria-label', 'Open menu'); }
-  menuBtn.addEventListener('click', function () {
-    var open = nav.classList.toggle('open');
-    menuBtn.setAttribute('aria-expanded', String(open));
-    menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-  });
-  nav.addEventListener('click', function (e) { if (e.target.closest('a')) closeNav(); });
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeNav(); });
-
   /* ---------- Area tabs: problems and services stay in sync ---------- */
-  var AREA_NAMES = { 'ga4': 'Measure and tags', 'server-side': 'Server-side and conversions', 'consent': 'Consent and privacy', 'app': 'App tracking', 'ecommerce': 'Ecommerce', 'data': 'Data and reporting' };
+  var AREA_NAMES = { 'analytics': 'Analytics and tag management', 'app': 'App tracking', 'ecommerce': 'Ecommerce tracking', 'server-side': 'Server-side tracking', 'consent': 'Consent and privacy', 'ad-platforms': 'Ad platforms', 'reporting': 'Data and reporting' };
   var groups = $$('[role="tablist"][data-group]');
   function setArea(area, source) {
     groups.forEach(function (list) {
@@ -49,37 +38,6 @@
       });
     });
   });
-  // "See what we do" and footer service links jump to the matching service (TODO: link to service pages when built)
-  $$('[data-goto]').forEach(function (b) {
-    b.addEventListener('click', function (e) {
-      e.preventDefault();
-      setArea(b.dataset.goto, 'goto');
-      $('#services').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
-      setTimeout(function () { $('#st-' + b.dataset.goto).focus({ preventScroll: true }); }, reduce ? 0 : 600);
-    });
-  });
-
-  /* ---------- CTA tracking (one handler, one event per click) ---------- */
-  $$('[data-cta]').forEach(function (a) {
-    a.addEventListener('click', function () { track('cta_click', { cta_label: a.textContent.replace(/\s+/g, ' ').trim(), cta_location: a.dataset.cta }); });
-  });
-  $$('[data-outbound]').forEach(function (a) {
-    a.addEventListener('click', function () { track('outbound_click', { link_type: a.dataset.outbound, link_url: a.getAttribute('href') }); });
-  });
-  $$('#faqList details').forEach(function (d) {
-    d.addEventListener('toggle', function () { if (d.open) track('faq_open', { faq_question: $('summary', d).textContent.trim() }); });
-  });
-  var depthDone = {};
-  function onScroll() {
-    var h = document.documentElement.scrollHeight - window.innerHeight;
-    if (h <= 0) return;
-    var pct = window.scrollY / h * 100;
-    [50, 90].forEach(function (t) {
-      if (!depthDone[t] && pct >= t && track('scroll_depth', { percent_scrolled: t })) depthDone[t] = true;
-    });
-  }
-  window.addEventListener('scroll', onScroll, { passive: true });
-
   /* ---------- Lead form ---------- */
   var form = $('#leadForm');
   var steps = $$('.fstep', form);
@@ -103,6 +61,11 @@
       setTimeout(function () { if (box) box.focus({ preventScroll: true }); }, reduce ? 0 : 600);
     });
   });
+  // Service pages link here with ?area=<service> to preselect that area
+  try {
+    var pre = new URLSearchParams(location.search).get('area'), preBox = pre && $('input[data-key="' + pre + '"]', form);
+    if (preBox) preBox.checked = true;
+  } catch (e) { /* ignore */ }
   function markStart() { if (!started) { started = true; track('form_start', { form_name: 'contact' }); } }
   form.addEventListener('focusin', markStart);
   form.addEventListener('change', markStart);
@@ -186,11 +149,4 @@
       });
   });
 
-  /* ---------- Mobile sticky bar: hide while the contact section is on screen ---------- */
-  var sticky = $('#stickyCta'), contact = $('#contact');
-  if (sticky && contact && 'IntersectionObserver' in window) {
-    new IntersectionObserver(function (en) { sticky.classList.toggle('is-hidden', en[0].isIntersecting); }, { threshold: 0.05 }).observe(contact);
-  }
-
-  var yr = $('#yr'); if (yr) yr.textContent = new Date().getFullYear();
 })();

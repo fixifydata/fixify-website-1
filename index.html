@@ -78,12 +78,13 @@
         "@type": "OfferCatalog",
         "name": "What we do",
         "itemListElement": [
-          {"@type":"Offer","itemOffered":{"@type":"Service","name":"Measure and tags"}},
-          {"@type":"Offer","itemOffered":{"@type":"Service","name":"Server-side and conversions"}},
-          {"@type":"Offer","itemOffered":{"@type":"Service","name":"Consent and privacy"}},
-          {"@type":"Offer","itemOffered":{"@type":"Service","name":"App tracking"}},
-          {"@type":"Offer","itemOffered":{"@type":"Service","name":"Ecommerce"}},
-          {"@type":"Offer","itemOffered":{"@type":"Service","name":"Data and reporting"}}
+          {"@type":"Offer","itemOffered":{"@type":"Service","name":"Analytics and tag management","url":"https://fixifydata.xyz/services/analytics-and-tags"}},
+          {"@type":"Offer","itemOffered":{"@type":"Service","name":"App tracking","url":"https://fixifydata.xyz/services/app-tracking"}},
+          {"@type":"Offer","itemOffered":{"@type":"Service","name":"Ecommerce tracking","url":"https://fixifydata.xyz/services/ecommerce-tracking"}},
+          {"@type":"Offer","itemOffered":{"@type":"Service","name":"Server-side tracking","url":"https://fixifydata.xyz/services/server-side-tracking"}},
+          {"@type":"Offer","itemOffered":{"@type":"Service","name":"Consent and privacy","url":"https://fixifydata.xyz/services/consent-and-privacy"}},
+          {"@type":"Offer","itemOffered":{"@type":"Service","name":"Ad platforms","url":"https://fixifydata.xyz/services/ad-platforms"}},
+          {"@type":"Offer","itemOffered":{"@type":"Service","name":"Data and reporting","url":"https://fixifydata.xyz/services/data-and-reporting"}}
         ]
       }
     },
@@ -170,13 +171,15 @@
       <img src="/assets/logo-light.webp" alt="Fixify" width="150" height="50">
     </a>
     <nav class="nav" id="nav" aria-label="Main">
-      <a href="#services">What we do</a>
-      <a href="#process">How it works</a>
-      <a href="#sectors">Sectors</a>
-      <!-- Team link: restore together with the #team section below when real team members are ready. -->
-      <!-- <a href="#team">Team</a> -->
-      <a href="#faq">FAQ</a>
-      <a href="#contact" class="btn btn-gold nav-cta" data-cta="nav">Let’s talk</a>
+      <div class="dd" id="dd">
+        <button type="button" class="dd-btn" id="ddb" aria-expanded="false" aria-controls="pn">Services <span class="caret" aria-hidden="true"></span></button>
+        <div class="panel" id="pn"><div class="panel-col"><p class="panel-h">Measure</p><a href="/services/analytics-and-tags"><b>Analytics and tag management</b><small>Reliable data, every journey</small></a><a href="/services/app-tracking"><b>App tracking</b><small>App and web data, one story</small></a><a href="/services/ecommerce-tracking"><b>Ecommerce tracking</b><small>Revenue that reconciles</small></a></div><div class="panel-col"><p class="panel-h">Control</p><a href="/services/server-side-tracking"><b>Server-side tracking</b><small>Recover data, control what leaves</small></a><a href="/services/consent-and-privacy"><b>Consent and privacy</b><small>Compliant and still measured</small></a></div><div class="panel-col"><p class="panel-h">Connect and decide</p><a href="/services/ad-platforms"><b>Ad platforms</b><small>Every platform sees your sales</small></a><a href="/services/data-and-reporting"><b>Data and reporting</b><small>Dashboards people trust</small></a></div><a class="panel-all" href="/#services">All services</a></div>
+      </div>
+      <a href="/#process">How it works</a>
+      <a href="/#sectors">Sectors</a>
+      <!-- Team link: restore with the #team section on the homepage when real team members are ready. -->
+      <a href="/#faq">FAQ</a>
+      <a href="/#contact" class="btn btn-gold nav-cta" data-cta="nav">Let’s talk</a>
     </nav>
     <button class="menu-btn" aria-expanded="false" aria-controls="nav" aria-label="Open menu"><span></span><span></span></button>
   </div>
@@ -227,65 +230,58 @@
   </div>
 </section>
 
-<!-- 2. PLATFORMS CAROUSEL (real text in the HTML; animated with CSS only) -->
 <section class="tools" aria-labelledby="tools-title">
-  <div class="tools-inner">
-    <h2 id="tools-title">Platforms we work with</h2>
-    <div class="marquee" id="marquee">
-      <div class="marquee-track">
-        <ul class="marquee-list">
-          <li class="logo-tile"><img class="wm" src="/assets/logos/carousel/tealium.webp" alt="" width="141" height="34" decoding="async"><span class="sr">Tealium</span></li>
-          <li class="logo-tile"><img class="wm" src="/assets/logos/carousel/segment.webp" alt="" width="162" height="34" decoding="async"><span class="sr">Segment</span></li>
-          <li class="logo-tile"><img class="wm" src="/assets/logos/carousel/gtm.webp" alt="" width="70" height="52" decoding="async"><span class="sr">Google Tag Manager</span></li>
-          <li class="logo-tile"><img src="/assets/logos/sgtm.svg" alt="" width="24" height="24" loading="lazy" decoding="async"><span>Server-side GTM</span></li>
-          <li class="logo-tile"><img class="wm" src="/assets/logos/carousel/meta.webp" alt="" width="163" height="33" decoding="async"><span class="sr">Meta Conversions API</span></li>
-          <li class="logo-tile"><img class="wm" src="/assets/logos/carousel/google-ads.webp" alt="" width="114" height="42" decoding="async"><span class="sr">Google Ads</span></li>
-          <li class="logo-tile"><img class="wm" src="/assets/logos/carousel/amplitude.webp" alt="" width="163" height="34" decoding="async"><span class="sr">Amplitude</span></li>
-          <li class="logo-tile"><img class="wm" src="/assets/logos/carousel/mixpanel.webp" alt="" width="101" height="34" decoding="async"><span class="sr">Mixpanel</span></li>
-          <li class="logo-tile"><img class="wm" src="/assets/logos/carousel/adobe-analytics.webp" alt="" width="100" height="42" decoding="async"><span class="sr">Adobe Analytics</span></li>
-          <li class="logo-tile"><img class="wm" src="/assets/logos/carousel/ga4.webp" alt="" width="110" height="34" decoding="async"><span class="sr">GA4</span></li>
-          <li class="logo-tile"><img class="wm" src="/assets/logos/carousel/posthog.webp" alt="" width="166" height="29" decoding="async"><span class="sr">PostHog</span></li>
-          <li class="logo-tile"><img class="wm" src="/assets/logos/carousel/appsflyer.webp" alt="" width="115" height="34" decoding="async"><span class="sr">AppsFlyer</span></li>
-          <li class="logo-tile"><img class="wm" src="/assets/logos/carousel/firebase.webp" alt="" width="128" height="34" decoding="async"><span class="sr">Firebase</span></li>
-          <li class="logo-tile"><img class="wm" src="/assets/logos/carousel/rudderstack.webp" alt="" width="168" height="28" decoding="async"><span class="sr">RudderStack</span></li>
-          <li class="logo-tile"><img class="wm" src="/assets/logos/carousel/onetrust.webp" alt="" width="166" height="29" decoding="async"><span class="sr">OneTrust</span></li>
-          <li class="logo-tile"><img class="wm" src="/assets/logos/carousel/cookiebot.webp" alt="" width="115" height="34" decoding="async"><span class="sr">Cookiebot</span></li>
-          <li class="logo-tile"><img class="wm" src="/assets/logos/carousel/bigquery.webp" alt="" width="98" height="42" decoding="async"><span class="sr">BigQuery</span></li>
-          <li class="logo-tile"><img class="wm" src="/assets/logos/carousel/snowflake.webp" alt="" width="144" height="34" decoding="async"><span class="sr">Snowflake</span></li>
-          <li class="logo-tile"><img class="wm" src="/assets/logos/carousel/looker.webp" alt="" width="97" height="42" decoding="async"><span class="sr">Looker Studio</span></li>
-          <li class="logo-tile"><img class="wm" src="/assets/logos/carousel/powerbi.webp" alt="" width="125" height="34" decoding="async"><span class="sr">Power BI</span></li>
-          <li class="logo-tile"><span class="logo-fallback" aria-hidden="true">DB</span><span>dbt</span></li>
-          <li class="logo-tile"><img class="wm" src="/assets/logos/carousel/shopify.webp" alt="" width="119" height="34" decoding="async"><span class="sr">Shopify</span></li>
-          <li class="logo-tile"><img class="wm" src="/assets/logos/carousel/tiktok.webp" alt="" width="139" height="34" decoding="async"><span class="sr">TikTok Events API</span></li>
-          <li class="logo-tile"><img class="wm" src="/assets/logos/carousel/linkedin.webp" alt="" width="160" height="34" decoding="async"><span class="sr">LinkedIn Ads</span></li>
-        </ul>
-        <ul class="marquee-list" aria-hidden="true">
-          <li class="logo-tile"><img class="wm" src="/assets/logos/carousel/tealium.webp" alt="" width="141" height="34" decoding="async"><span class="sr">Tealium</span></li>
-          <li class="logo-tile"><img class="wm" src="/assets/logos/carousel/segment.webp" alt="" width="162" height="34" decoding="async"><span class="sr">Segment</span></li>
-          <li class="logo-tile"><img class="wm" src="/assets/logos/carousel/gtm.webp" alt="" width="70" height="52" decoding="async"><span class="sr">Google Tag Manager</span></li>
-          <li class="logo-tile"><img src="/assets/logos/sgtm.svg" alt="" width="24" height="24" loading="lazy" decoding="async"><span>Server-side GTM</span></li>
-          <li class="logo-tile"><img class="wm" src="/assets/logos/carousel/meta.webp" alt="" width="163" height="33" decoding="async"><span class="sr">Meta Conversions API</span></li>
-          <li class="logo-tile"><img class="wm" src="/assets/logos/carousel/google-ads.webp" alt="" width="114" height="42" decoding="async"><span class="sr">Google Ads</span></li>
-          <li class="logo-tile"><img class="wm" src="/assets/logos/carousel/amplitude.webp" alt="" width="163" height="34" decoding="async"><span class="sr">Amplitude</span></li>
-          <li class="logo-tile"><img class="wm" src="/assets/logos/carousel/mixpanel.webp" alt="" width="101" height="34" decoding="async"><span class="sr">Mixpanel</span></li>
-          <li class="logo-tile"><img class="wm" src="/assets/logos/carousel/adobe-analytics.webp" alt="" width="100" height="42" decoding="async"><span class="sr">Adobe Analytics</span></li>
-          <li class="logo-tile"><img class="wm" src="/assets/logos/carousel/ga4.webp" alt="" width="110" height="34" decoding="async"><span class="sr">GA4</span></li>
-          <li class="logo-tile"><img class="wm" src="/assets/logos/carousel/posthog.webp" alt="" width="166" height="29" decoding="async"><span class="sr">PostHog</span></li>
-          <li class="logo-tile"><img class="wm" src="/assets/logos/carousel/appsflyer.webp" alt="" width="115" height="34" decoding="async"><span class="sr">AppsFlyer</span></li>
-          <li class="logo-tile"><img class="wm" src="/assets/logos/carousel/firebase.webp" alt="" width="128" height="34" decoding="async"><span class="sr">Firebase</span></li>
-          <li class="logo-tile"><img class="wm" src="/assets/logos/carousel/rudderstack.webp" alt="" width="168" height="28" decoding="async"><span class="sr">RudderStack</span></li>
-          <li class="logo-tile"><img class="wm" src="/assets/logos/carousel/onetrust.webp" alt="" width="166" height="29" decoding="async"><span class="sr">OneTrust</span></li>
-          <li class="logo-tile"><img class="wm" src="/assets/logos/carousel/cookiebot.webp" alt="" width="115" height="34" decoding="async"><span class="sr">Cookiebot</span></li>
-          <li class="logo-tile"><img class="wm" src="/assets/logos/carousel/bigquery.webp" alt="" width="98" height="42" decoding="async"><span class="sr">BigQuery</span></li>
-          <li class="logo-tile"><img class="wm" src="/assets/logos/carousel/snowflake.webp" alt="" width="144" height="34" decoding="async"><span class="sr">Snowflake</span></li>
-          <li class="logo-tile"><img class="wm" src="/assets/logos/carousel/looker.webp" alt="" width="97" height="42" decoding="async"><span class="sr">Looker Studio</span></li>
-          <li class="logo-tile"><img class="wm" src="/assets/logos/carousel/powerbi.webp" alt="" width="125" height="34" decoding="async"><span class="sr">Power BI</span></li>
-          <li class="logo-tile"><span class="logo-fallback" aria-hidden="true">DB</span><span>dbt</span></li>
-          <li class="logo-tile"><img class="wm" src="/assets/logos/carousel/shopify.webp" alt="" width="119" height="34" decoding="async"><span class="sr">Shopify</span></li>
-          <li class="logo-tile"><img class="wm" src="/assets/logos/carousel/tiktok.webp" alt="" width="139" height="34" decoding="async"><span class="sr">TikTok Events API</span></li>
-          <li class="logo-tile"><img class="wm" src="/assets/logos/carousel/linkedin.webp" alt="" width="160" height="34" decoding="async"><span class="sr">LinkedIn Ads</span></li>
-        </ul>
-      </div>
+  <h2 id="tools-title" class="tools-pill">Tools we work with</h2>
+  <div class="marquee" id="marquee">
+    <div class="marquee-track">
+      <ul class="marquee-list">
+          <li class="logo-slide"><img src="/assets/logos/carousel/tealium.webp" alt="" width="160" height="44" decoding="async"><span class="sr">Tealium</span></li>
+          <li class="logo-slide"><img src="/assets/logos/carousel/segment.webp" alt="" width="160" height="44" decoding="async"><span class="sr">Segment</span></li>
+          <li class="logo-slide"><img src="/assets/logos/carousel/gtm.webp" alt="" width="160" height="44" decoding="async"><span class="sr">Google Tag Manager</span></li>
+          <li class="logo-slide"><img src="/assets/logos/carousel/meta.webp" alt="" width="160" height="44" decoding="async"><span class="sr">Meta Conversions API</span></li>
+          <li class="logo-slide"><img src="/assets/logos/carousel/google-ads.webp" alt="" width="160" height="44" decoding="async"><span class="sr">Google Ads</span></li>
+          <li class="logo-slide"><img src="/assets/logos/carousel/amplitude.webp" alt="" width="160" height="44" decoding="async"><span class="sr">Amplitude</span></li>
+          <li class="logo-slide"><img src="/assets/logos/carousel/mixpanel.webp" alt="" width="160" height="44" decoding="async"><span class="sr">Mixpanel</span></li>
+          <li class="logo-slide"><img src="/assets/logos/carousel/adobe-analytics.webp" alt="" width="160" height="44" decoding="async"><span class="sr">Adobe Analytics</span></li>
+          <li class="logo-slide"><img src="/assets/logos/carousel/ga4.webp" alt="" width="160" height="44" decoding="async"><span class="sr">GA4</span></li>
+          <li class="logo-slide"><img src="/assets/logos/carousel/posthog.webp" alt="" width="160" height="44" decoding="async"><span class="sr">PostHog</span></li>
+          <li class="logo-slide"><img src="/assets/logos/carousel/appsflyer.webp" alt="" width="160" height="44" decoding="async"><span class="sr">AppsFlyer</span></li>
+          <li class="logo-slide"><img src="/assets/logos/carousel/firebase.webp" alt="" width="160" height="44" decoding="async"><span class="sr">Firebase</span></li>
+          <li class="logo-slide"><img src="/assets/logos/carousel/rudderstack.webp" alt="" width="160" height="44" decoding="async"><span class="sr">RudderStack</span></li>
+          <li class="logo-slide"><img src="/assets/logos/carousel/onetrust.webp" alt="" width="160" height="44" decoding="async"><span class="sr">OneTrust</span></li>
+          <li class="logo-slide"><img src="/assets/logos/carousel/cookiebot.webp" alt="" width="160" height="44" decoding="async"><span class="sr">Cookiebot</span></li>
+          <li class="logo-slide"><img src="/assets/logos/carousel/bigquery.webp" alt="" width="160" height="44" decoding="async"><span class="sr">BigQuery</span></li>
+          <li class="logo-slide"><img src="/assets/logos/carousel/snowflake.webp" alt="" width="160" height="44" decoding="async"><span class="sr">Snowflake</span></li>
+          <li class="logo-slide"><img src="/assets/logos/carousel/looker.webp" alt="" width="160" height="44" decoding="async"><span class="sr">Looker Studio</span></li>
+          <li class="logo-slide"><img src="/assets/logos/carousel/powerbi.webp" alt="" width="160" height="44" decoding="async"><span class="sr">Power BI</span></li>
+          <li class="logo-slide"><img src="/assets/logos/carousel/shopify.webp" alt="" width="160" height="44" decoding="async"><span class="sr">Shopify</span></li>
+          <li class="logo-slide"><img src="/assets/logos/carousel/tiktok.webp" alt="" width="160" height="44" decoding="async"><span class="sr">TikTok Events API</span></li>
+          <li class="logo-slide"><img src="/assets/logos/carousel/linkedin.webp" alt="" width="160" height="44" decoding="async"><span class="sr">LinkedIn Ads</span></li>
+      </ul>
+      <ul class="marquee-list" aria-hidden="true">
+          <li class="logo-slide"><img src="/assets/logos/carousel/tealium.webp" alt="" width="160" height="44" decoding="async"><span class="sr">Tealium</span></li>
+          <li class="logo-slide"><img src="/assets/logos/carousel/segment.webp" alt="" width="160" height="44" decoding="async"><span class="sr">Segment</span></li>
+          <li class="logo-slide"><img src="/assets/logos/carousel/gtm.webp" alt="" width="160" height="44" decoding="async"><span class="sr">Google Tag Manager</span></li>
+          <li class="logo-slide"><img src="/assets/logos/carousel/meta.webp" alt="" width="160" height="44" decoding="async"><span class="sr">Meta Conversions API</span></li>
+          <li class="logo-slide"><img src="/assets/logos/carousel/google-ads.webp" alt="" width="160" height="44" decoding="async"><span class="sr">Google Ads</span></li>
+          <li class="logo-slide"><img src="/assets/logos/carousel/amplitude.webp" alt="" width="160" height="44" decoding="async"><span class="sr">Amplitude</span></li>
+          <li class="logo-slide"><img src="/assets/logos/carousel/mixpanel.webp" alt="" width="160" height="44" decoding="async"><span class="sr">Mixpanel</span></li>
+          <li class="logo-slide"><img src="/assets/logos/carousel/adobe-analytics.webp" alt="" width="160" height="44" decoding="async"><span class="sr">Adobe Analytics</span></li>
+          <li class="logo-slide"><img src="/assets/logos/carousel/ga4.webp" alt="" width="160" height="44" decoding="async"><span class="sr">GA4</span></li>
+          <li class="logo-slide"><img src="/assets/logos/carousel/posthog.webp" alt="" width="160" height="44" decoding="async"><span class="sr">PostHog</span></li>
+          <li class="logo-slide"><img src="/assets/logos/carousel/appsflyer.webp" alt="" width="160" height="44" decoding="async"><span class="sr">AppsFlyer</span></li>
+          <li class="logo-slide"><img src="/assets/logos/carousel/firebase.webp" alt="" width="160" height="44" decoding="async"><span class="sr">Firebase</span></li>
+          <li class="logo-slide"><img src="/assets/logos/carousel/rudderstack.webp" alt="" width="160" height="44" decoding="async"><span class="sr">RudderStack</span></li>
+          <li class="logo-slide"><img src="/assets/logos/carousel/onetrust.webp" alt="" width="160" height="44" decoding="async"><span class="sr">OneTrust</span></li>
+          <li class="logo-slide"><img src="/assets/logos/carousel/cookiebot.webp" alt="" width="160" height="44" decoding="async"><span class="sr">Cookiebot</span></li>
+          <li class="logo-slide"><img src="/assets/logos/carousel/bigquery.webp" alt="" width="160" height="44" decoding="async"><span class="sr">BigQuery</span></li>
+          <li class="logo-slide"><img src="/assets/logos/carousel/snowflake.webp" alt="" width="160" height="44" decoding="async"><span class="sr">Snowflake</span></li>
+          <li class="logo-slide"><img src="/assets/logos/carousel/looker.webp" alt="" width="160" height="44" decoding="async"><span class="sr">Looker Studio</span></li>
+          <li class="logo-slide"><img src="/assets/logos/carousel/powerbi.webp" alt="" width="160" height="44" decoding="async"><span class="sr">Power BI</span></li>
+          <li class="logo-slide"><img src="/assets/logos/carousel/shopify.webp" alt="" width="160" height="44" decoding="async"><span class="sr">Shopify</span></li>
+          <li class="logo-slide"><img src="/assets/logos/carousel/tiktok.webp" alt="" width="160" height="44" decoding="async"><span class="sr">TikTok Events API</span></li>
+          <li class="logo-slide"><img src="/assets/logos/carousel/linkedin.webp" alt="" width="160" height="44" decoding="async"><span class="sr">LinkedIn Ads</span></li>
+      </ul>
     </div>
   </div>
 </section>
@@ -327,40 +323,22 @@
     <p class="section-lede">Usually when one of these starts to sound familiar. Pick your area.</p>
 
     <div class="area-tabs" role="tablist" aria-label="Problem areas" data-group="problems">
-      <button role="tab" id="pt-ga4" aria-controls="pp-ga4" data-area="ga4" aria-selected="true">Measure and tags</button>
-      <button role="tab" id="pt-server-side" aria-controls="pp-server-side" data-area="server-side" aria-selected="false" tabindex="-1">Server-side and conversions</button>
-      <button role="tab" id="pt-consent" aria-controls="pp-consent" data-area="consent" aria-selected="false" tabindex="-1">Consent</button>
-      <button role="tab" id="pt-app" aria-controls="pp-app" data-area="app" aria-selected="false" tabindex="-1">Apps</button>
+      <button role="tab" id="pt-analytics" aria-controls="pp-analytics" data-area="analytics" aria-selected="true">Analytics and tags</button>
+      <button role="tab" id="pt-app" aria-controls="pp-app" data-area="app" aria-selected="false" tabindex="-1">App tracking</button>
       <button role="tab" id="pt-ecommerce" aria-controls="pp-ecommerce" data-area="ecommerce" aria-selected="false" tabindex="-1">Ecommerce</button>
-      <button role="tab" id="pt-data" aria-controls="pp-data" data-area="data" aria-selected="false" tabindex="-1">Data and reporting</button>
+      <button role="tab" id="pt-server-side" aria-controls="pp-server-side" data-area="server-side" aria-selected="false" tabindex="-1">Server-side</button>
+      <button role="tab" id="pt-consent" aria-controls="pp-consent" data-area="consent" aria-selected="false" tabindex="-1">Consent</button>
+      <button role="tab" id="pt-ad-platforms" aria-controls="pp-ad-platforms" data-area="ad-platforms" aria-selected="false" tabindex="-1">Ad platforms</button>
+      <button role="tab" id="pt-reporting" aria-controls="pp-reporting" data-area="reporting" aria-selected="false" tabindex="-1">Data and reporting</button>
     </div>
 
-    <!-- TODO: link to service pages when built (the "See what we do" links below point to #services for now) -->
-    <div class="problem-panel" role="tabpanel" id="pp-ga4" aria-labelledby="pt-ga4" data-area="ga4">
+    <div class="problem-panel" role="tabpanel" id="pp-analytics" aria-labelledby="pt-analytics" data-area="analytics">
       <div class="problem-grid">
         <article class="problem"><p class="say">“GA4 says 80 purchases. Our backend says 112.”</p><p class="deliver"><strong>We deliver</strong>The cause found and fixed, checked against your real orders, with any remaining gap explained and documented.</p></article>
         <article class="problem"><p class="say">“Our GTM container has 400 tags and nobody knows what half of them do.”</p><p class="deliver"><strong>We deliver</strong>A container clean-up (the container is the box that holds your tracking tags): what to keep, merge and switch off, with naming rules your team can follow.</p></article>
         <article class="problem"><p class="say">“Every site release breaks a few events, and we find out weeks later.”</p><p class="deliver"><strong>We deliver</strong>A data layer spec (the structured data your site hands to your tags) for your developers to build to, plus monitoring that flags broken events early.</p></article>
       </div>
-      <a class="qlink" href="#services" data-goto="ga4">See what we do</a>
-    </div>
-
-    <div class="problem-panel" role="tabpanel" id="pp-server-side" aria-labelledby="pt-server-side" data-area="server-side" hidden>
-      <div class="problem-grid">
-        <article class="problem"><p class="say">“Meta reports half the conversions our backend sees.”</p><p class="deliver"><strong>We deliver</strong>Meta Conversions API (a direct feed from your server to Meta) through server-side GTM, with better event match quality.</p></article>
-        <article class="problem"><p class="say">“Google Ads bidding feels blind since the iOS changes.”</p><p class="deliver"><strong>We deliver</strong>Enhanced conversions, offline conversion imports and server-side tagging, so bidding learns from real outcomes.</p></article>
-        <article class="problem"><p class="say">“We added CAPI, and now every purchase is counted twice.”</p><p class="deliver"><strong>We deliver</strong>Browser and server event deduplication across Meta, TikTok, LinkedIn and Google Ads, so each purchase counts once.</p></article>
-      </div>
-      <a class="qlink" href="#services" data-goto="server-side">See what we do</a>
-    </div>
-
-    <div class="problem-panel" role="tabpanel" id="pp-consent" aria-labelledby="pt-consent" data-area="consent" hidden>
-      <div class="problem-grid">
-        <article class="problem"><p class="say">“Our cookie banner is live, but tags still fire before anyone clicks.”</p><p class="deliver"><strong>We deliver</strong>Your consent platform and Consent Mode v2 (Google’s setting that adjusts tags to each visitor’s choice) set up so every tag waits for the right choice.</p></article>
-        <article class="problem"><p class="say">“We switched CMP and our conversions dropped 40% overnight.”</p><p class="deliver"><strong>We deliver</strong>A consent-to-tag mapping review that restores the measurement you’re allowed to keep.</p></article>
-        <article class="problem"><p class="say">“Legal wants proof our tracking respects consent. We have none.”</p><p class="deliver"><strong>We deliver</strong>Before- and after-consent firing tests in every region, written up as evidence you can keep.</p></article>
-      </div>
-      <a class="qlink" href="#services" data-goto="consent">See what we do</a>
+      <a class="qlink" href="/services/analytics-and-tags">See what we do</a>
     </div>
 
     <div class="problem-panel" role="tabpanel" id="pp-app" aria-labelledby="pt-app" data-area="app" hidden>
@@ -369,7 +347,7 @@
         <article class="problem"><p class="say">“We see web journeys and app journeys, but never one customer.”</p><p class="deliver"><strong>We deliver</strong>An identity plan that connects web and app users, with clear rules for collecting and matching data.</p></article>
         <article class="problem"><p class="say">“Product wants Amplitude, marketing wants GA4, and nobody agrees on event names.”</p><p class="deliver"><strong>We deliver</strong>One shared event plan that feeds every tool from a single implementation.</p></article>
       </div>
-      <a class="qlink" href="#services" data-goto="app">See what we do</a>
+      <a class="qlink" href="/services/app-tracking">See what we do</a>
     </div>
 
     <div class="problem-panel" role="tabpanel" id="pp-ecommerce" aria-labelledby="pt-ecommerce" data-area="ecommerce" hidden>
@@ -378,68 +356,76 @@
         <article class="problem"><p class="say">“GA4 revenue includes tax, shipping or refunds, and nobody knows which.”</p><p class="deliver"><strong>We deliver</strong>One revenue definition applied the same way in your analytics, the ad platforms and your reports.</p></article>
         <article class="problem"><p class="say">“We’re moving to a new platform next quarter.”</p><p class="deliver"><strong>We deliver</strong>A migration tracking plan and launch QA, so you keep year-on-year comparisons.</p></article>
       </div>
-      <a class="qlink" href="#services" data-goto="ecommerce">See what we do</a>
+      <a class="qlink" href="/services/ecommerce-tracking">See what we do</a>
     </div>
 
-    <div class="problem-panel" role="tabpanel" id="pp-data" aria-labelledby="pt-data" data-area="data" hidden>
+    <div class="problem-panel" role="tabpanel" id="pp-server-side" aria-labelledby="pt-server-side" data-area="server-side" hidden>
+      <div class="problem-grid">
+        <article class="problem"><p class="say">“Meta reports half the conversions our backend sees.”</p><p class="deliver"><strong>We deliver</strong>Meta Conversions API (a direct feed from your server to Meta) through server-side GTM, with better event match quality.</p></article>
+        <article class="problem"><p class="say">“Google Ads bidding feels blind since the iOS changes.”</p><p class="deliver"><strong>We deliver</strong>Enhanced conversions, offline conversion imports and server-side tagging, so bidding learns from real outcomes.</p></article>
+        <article class="problem"><p class="say">“We added CAPI, and now every purchase is counted twice.”</p><p class="deliver"><strong>We deliver</strong>Browser and server event deduplication across Meta, TikTok, LinkedIn and Google Ads, so each purchase counts once.</p></article>
+      </div>
+      <a class="qlink" href="/services/server-side-tracking">See what we do</a>
+    </div>
+
+    <div class="problem-panel" role="tabpanel" id="pp-consent" aria-labelledby="pt-consent" data-area="consent" hidden>
+      <div class="problem-grid">
+        <article class="problem"><p class="say">“Our cookie banner is live, but tags still fire before anyone clicks.”</p><p class="deliver"><strong>We deliver</strong>Your consent platform and Consent Mode v2 (Google’s setting that adjusts tags to each visitor’s choice) set up so every tag waits for the right choice.</p></article>
+        <article class="problem"><p class="say">“We switched CMP and our conversions dropped 40% overnight.”</p><p class="deliver"><strong>We deliver</strong>A consent-to-tag mapping review that restores the measurement you’re allowed to keep.</p></article>
+        <article class="problem"><p class="say">“Legal wants proof our tracking respects consent. We have none.”</p><p class="deliver"><strong>We deliver</strong>Before- and after-consent firing tests in every region, written up as evidence you can keep.</p></article>
+      </div>
+      <a class="qlink" href="/services/consent-and-privacy">See what we do</a>
+    </div>
+
+    <div class="problem-panel" role="tabpanel" id="pp-ad-platforms" aria-labelledby="pt-ad-platforms" data-area="ad-platforms" hidden>
+      <div class="problem-grid">
+        <article class="problem"><p class="say">“Meta says it drove 400 sales. Our store shows 250.”</p><p class="deliver"><strong>We deliver</strong>Duplicates and gaps traced, with the remaining difference explained.</p></article>
+        <article class="problem"><p class="say">“Google Ads, Meta and analytics all report different conversions.”</p><p class="deliver"><strong>We deliver</strong>One agreed definition of a conversion and a comparable view.</p></article>
+        <article class="problem"><p class="say">“Our CRM knows which leads closed. Our platforms don’t.”</p><p class="deliver"><strong>We deliver</strong>Offline conversions sent back to the platforms.</p></article>
+      </div>
+      <a class="qlink" href="/services/ad-platforms">See what we do</a>
+    </div>
+
+    <div class="problem-panel" role="tabpanel" id="pp-reporting" aria-labelledby="pt-reporting" data-area="reporting" hidden>
       <div class="problem-grid">
         <article class="problem"><p class="say">“Leadership wants one dashboard. We have twelve tools.”</p><p class="deliver"><strong>We deliver</strong>A stack review, then reporting from a single source of truth in Looker Studio, Power BI or Tableau.</p></article>
         <article class="problem"><p class="say">“The GA4 BigQuery export doesn’t match the GA4 interface.”</p><p class="deliver"><strong>We deliver</strong>dbt models (tested data transformations) that explain and reconcile the difference, documented line by line.</p></article>
         <article class="problem"><p class="say">“Our customer data is spread across the CRM, the shop and three agencies.”</p><p class="deliver"><strong>We deliver</strong>A warehouse-first or CDP (customer data platform) plan with Segment or RudderStack, and an owner for every source.</p></article>
       </div>
-      <a class="qlink" href="#services" data-goto="data">See what we do</a>
+      <a class="qlink" href="/services/data-and-reporting">See what we do</a>
     </div>
   </div>
 </section>
 
 <!-- 6. WHAT WE DO + TOOLS -->
-<!-- TODO: link to service pages when built -->
 <section class="services" id="services" aria-labelledby="services-title">
   <div class="wrap">
     <h2 id="services-title" class="h2">What we do, and the tools we do it with.</h2>
-    <p class="section-lede">Six areas, one team. We know every platform below and recommend only the ones that fit your business.</p>
+    <p class="section-lede">Seven areas, one team. We know every platform below and recommend only the ones that fit your business.</p>
 
     <div class="svc">
       <div class="svc-list" role="tablist" aria-label="Services" aria-orientation="vertical" data-group="services">
-        <button role="tab" id="st-ga4" aria-controls="sp-ga4" data-area="ga4" aria-selected="true"><span>Measure and tags</span><small>Reliable data, every journey</small></button>
-        <button role="tab" id="st-server-side" aria-controls="sp-server-side" data-area="server-side" aria-selected="false" tabindex="-1"><span>Server-side and conversions</span><small>Recover lost conversions</small></button>
+        <button role="tab" id="st-analytics" aria-controls="sp-analytics" data-area="analytics" aria-selected="true"><span>Analytics and tag management</span><small>Reliable data, every journey</small></button>
+        <button role="tab" id="st-app" aria-controls="sp-app" data-area="app" aria-selected="false" tabindex="-1"><span>App tracking</span><small>App and web data, one story</small></button>
+        <button role="tab" id="st-ecommerce" aria-controls="sp-ecommerce" data-area="ecommerce" aria-selected="false" tabindex="-1"><span>Ecommerce tracking</span><small>Revenue that reconciles</small></button>
+        <button role="tab" id="st-server-side" aria-controls="sp-server-side" data-area="server-side" aria-selected="false" tabindex="-1"><span>Server-side tracking</span><small>Recover data, control what leaves</small></button>
         <button role="tab" id="st-consent" aria-controls="sp-consent" data-area="consent" aria-selected="false" tabindex="-1"><span>Consent and privacy</span><small>Compliant and still measured</small></button>
-        <button role="tab" id="st-app" aria-controls="sp-app" data-area="app" aria-selected="false" tabindex="-1"><span>App tracking</span><small>iOS, Android, product analytics</small></button>
-        <button role="tab" id="st-ecommerce" aria-controls="sp-ecommerce" data-area="ecommerce" aria-selected="false" tabindex="-1"><span>Ecommerce</span><small>Revenue that reconciles</small></button>
-        <button role="tab" id="st-data" aria-controls="sp-data" data-area="data" aria-selected="false" tabindex="-1"><span>Data and reporting</span><small>Warehouses and dashboards</small></button>
+        <button role="tab" id="st-ad-platforms" aria-controls="sp-ad-platforms" data-area="ad-platforms" aria-selected="false" tabindex="-1"><span>Ad platforms</span><small>Every platform sees your sales</small></button>
+        <button role="tab" id="st-reporting" aria-controls="sp-reporting" data-area="reporting" aria-selected="false" tabindex="-1"><span>Data and reporting</span><small>Dashboards people trust</small></button>
       </div>
 
-      <article class="svc-panel" role="tabpanel" id="sp-ga4" aria-labelledby="st-ga4">
-        <h3>Measure and tags</h3>
+      <article class="svc-panel" role="tabpanel" id="sp-analytics" aria-labelledby="st-analytics">
+        <h3>Analytics and tag management</h3>
         <p class="outcome">Reliable data from every web, app and product journey.</p>
         <p>We review your analytics setup, tag manager and data layer, find every reason the numbers disagree, and fix them. A tag manager such as Google Tag Manager (GTM) is the tool that controls which tracking snippets run on your site. What remains is explained in writing, so you know which number to use for which decision.</p>
         <div class="svc-cols">
           <div><h4>You get</h4><ul class="ticks"><li>A measurement plan</li><li>Duplicate, missing and misfiring events repaired</li><li>Data layer spec for your developers</li><li>Documentation your team can own</li></ul></div>
-          <div><h4>Tools</h4><ul class="tool-chips"><li><img src="/assets/logos/ga4.svg" alt="" width="24" height="24" loading="lazy" decoding="async">GA4</li><li><img src="/assets/logos/gtm.svg" alt="" width="24" height="24" loading="lazy" decoding="async">Google Tag Manager</li><li><span class="logo-fallback" aria-hidden="true">AA</span>Adobe Analytics</li><li><span class="logo-fallback" aria-hidden="true">AL</span>Adobe Launch</li><li><span class="logo-fallback" aria-hidden="true">TE</span>Tealium</li></ul></div>
+          <div><h4>Tools</h4><ul class="logo-chips"><li class="lchip"><img class="lc" src="/assets/logos/carousel/ga4.webp" alt="" width="120" height="33" loading="lazy" decoding="async"><span class="sr">GA4</span></li><li class="lchip"><img class="lc" src="/assets/logos/carousel/gtm.webp" alt="" width="120" height="33" loading="lazy" decoding="async"><span class="sr">Google Tag Manager</span></li><li class="lchip"><img class="lc" src="/assets/logos/carousel/adobe-analytics.webp" alt="" width="120" height="33" loading="lazy" decoding="async"><span class="sr">Adobe Analytics</span></li><li class="lchip lt"><span>Adobe Launch</span></li><li class="lchip"><img class="lc" src="/assets/logos/carousel/tealium.webp" alt="" width="120" height="33" loading="lazy" decoding="async"><span class="sr">Tealium</span></li></ul></div>
         </div>
-        <a class="btn btn-navy" href="#contact" data-pick="ga4" data-cta="service_ga4">Let’s talk</a>
-      </article>
-
-      <article class="svc-panel" role="tabpanel" id="sp-server-side" aria-labelledby="st-server-side" hidden>
-        <h3>Server-side and conversions</h3>
-        <p class="outcome">Recover lost conversions and feed ad platforms accurate data.</p>
-        <p>We set up server-side Google Tag Manager (tracking sent from a server you control, not the visitor’s browser) on your own subdomain and connect the ad platforms’ Conversion APIs (direct feeds from your server to each platform), with deduplication and consent built in. Better match quality, more recovered conversions and more control over what data leaves your site.</p>
-        <div class="svc-cols">
-          <div><h4>You get</h4><ul class="ticks"><li>sGTM on Google Cloud, Stape or your own servers</li><li>First-party subdomain and cookie setup</li><li>Server events for Meta, TikTok, LinkedIn and Google Ads</li><li>Deduplication and PII hashing checks</li></ul></div>
-          <div><h4>Tools</h4><ul class="tool-chips"><li><img src="/assets/logos/sgtm.svg" alt="" width="24" height="24" loading="lazy" decoding="async">Server-side GTM</li><li><img src="/assets/logos/google-ads.svg" alt="" width="24" height="24" loading="lazy" decoding="async">Google Ads</li><li><img src="/assets/logos/meta.svg" alt="" width="24" height="24" loading="lazy" decoding="async">Meta Conversions API</li><li><img src="/assets/logos/tiktok.svg" alt="" width="24" height="24" loading="lazy" decoding="async">TikTok Events API</li><li><span class="logo-fallback" aria-hidden="true">LA</span>LinkedIn Ads</li></ul></div>
+        <div class="svc-actions">
+          <a class="btn btn-navy" href="/?area=analytics#contact" data-pick="analytics" data-cta="service_analytics">Let’s talk</a>
+          <a class="qlink" href="/services/analytics-and-tags">Explore analytics and tag management</a>
         </div>
-        <a class="btn btn-navy" href="#contact" data-pick="server-side" data-cta="service_server-side">Let’s talk</a>
-      </article>
-
-      <article class="svc-panel" role="tabpanel" id="sp-consent" aria-labelledby="st-consent" hidden>
-        <h3>Consent and privacy</h3>
-        <p class="outcome">Compliant and still measured.</p>
-        <p>We configure your consent management platform (CMP, the tool behind your cookie banner) and Google Consent Mode v2 so tags respect each visitor’s choice in every region, then prove it with tests. Compliance you can show, without losing the measurement you’re allowed to keep.</p>
-        <div class="svc-cols">
-          <div><h4>You get</h4><ul class="ticks"><li>CMP set-up or migration with region rules</li><li>Consent Mode v2, basic or advanced</li><li>Tag-by-tag consent mapping in GTM</li><li>Before- and after-consent test evidence</li></ul></div>
-          <div><h4>Tools</h4><ul class="tool-chips"><li><span class="logo-fallback" aria-hidden="true">CO</span>Cookiebot</li><li><span class="logo-fallback" aria-hidden="true">ON</span>OneTrust</li><li><span class="logo-fallback" aria-hidden="true">US</span>Usercentrics</li><li><span class="logo-fallback" aria-hidden="true">TE</span>Termly</li></ul></div>
-        </div>
-        <a class="btn btn-navy" href="#contact" data-pick="consent" data-cta="service_consent">Let’s talk</a>
       </article>
 
       <article class="svc-panel" role="tabpanel" id="sp-app" aria-labelledby="st-app" hidden>
@@ -448,31 +434,82 @@
         <p>We plan and implement tracking for iOS and Android apps, connect attribution (which campaign brought each install) and product analytics, and link app users to your web data so journeys are measured end to end.</p>
         <div class="svc-cols">
           <div><h4>You get</h4><ul class="ticks"><li>One event plan shared by every tool</li><li>Firebase / GA4 for apps and SDK QA</li><li>Install attribution and SKAdNetwork setup</li><li>Web-to-app identity stitching</li></ul></div>
-          <div><h4>Tools</h4><ul class="tool-chips"><li><span class="logo-fallback" aria-hidden="true">AP</span>AppsFlyer</li><li><span class="logo-fallback" aria-hidden="true">AM</span>Amplitude</li><li><img src="/assets/logos/mixpanel.svg" alt="" width="24" height="24" loading="lazy" decoding="async">Mixpanel</li><li><img src="/assets/logos/posthog.svg" alt="" width="24" height="24" loading="lazy" decoding="async">PostHog</li><li><span class="logo-fallback" aria-hidden="true">SE</span>Segment</li><li><span class="logo-fallback" aria-hidden="true">RU</span>RudderStack</li></ul></div>
+          <div><h4>Tools</h4><ul class="logo-chips"><li class="lchip"><img class="lc" src="/assets/logos/carousel/firebase.webp" alt="" width="120" height="33" loading="lazy" decoding="async"><span class="sr">Firebase</span></li><li class="lchip"><img class="lc" src="/assets/logos/carousel/appsflyer.webp" alt="" width="120" height="33" loading="lazy" decoding="async"><span class="sr">AppsFlyer</span></li><li class="lchip"><img class="lc" src="/assets/logos/carousel/amplitude.webp" alt="" width="120" height="33" loading="lazy" decoding="async"><span class="sr">Amplitude</span></li><li class="lchip"><img class="lc" src="/assets/logos/carousel/mixpanel.webp" alt="" width="120" height="33" loading="lazy" decoding="async"><span class="sr">Mixpanel</span></li><li class="lchip"><img class="lc" src="/assets/logos/carousel/posthog.webp" alt="" width="120" height="33" loading="lazy" decoding="async"><span class="sr">PostHog</span></li></ul></div>
         </div>
-        <a class="btn btn-navy" href="#contact" data-pick="app" data-cta="service_app">Let’s talk</a>
+        <div class="svc-actions">
+          <a class="btn btn-navy" href="/?area=app#contact" data-pick="app" data-cta="service_app">Let’s talk</a>
+          <a class="qlink" href="/services/app-tracking">Explore app tracking</a>
+        </div>
       </article>
 
       <article class="svc-panel" role="tabpanel" id="sp-ecommerce" aria-labelledby="st-ecommerce" hidden>
-        <h3>Ecommerce</h3>
+        <h3>Ecommerce tracking</h3>
         <p class="outcome">Revenue that reconciles with your store.</p>
         <p>We track the full shopping journey, from product view to refund, and check it against real orders. Store migrations and checkout changes are handled without losing history.</p>
         <div class="svc-cols">
           <div><h4>You get</h4><ul class="ticks"><li>Full ecommerce event set</li><li>Checkout and purchase tracking that survives updates</li><li>One revenue definition across every platform</li><li>Migration plan and launch QA</li></ul></div>
-          <div><h4>Tools</h4><ul class="tool-chips"><li><img src="/assets/logos/shopify.svg" alt="" width="24" height="24" loading="lazy" decoding="async">Shopify</li><li><img src="/assets/logos/woocommerce.svg" alt="" width="24" height="24" loading="lazy" decoding="async">WooCommerce</li><li><img src="/assets/logos/bigcommerce.svg" alt="" width="24" height="24" loading="lazy" decoding="async">BigCommerce</li><li><img src="/assets/logos/ga4.svg" alt="" width="24" height="24" loading="lazy" decoding="async">GA4</li></ul></div>
+          <div><h4>Tools</h4><ul class="logo-chips"><li class="lchip"><img class="lc" src="/assets/logos/carousel/shopify.webp" alt="" width="120" height="33" loading="lazy" decoding="async"><span class="sr">Shopify</span></li><li class="lchip lt"><img src="/assets/logos/woocommerce.svg" alt="" width="20" height="20" loading="lazy"><span>WooCommerce</span></li><li class="lchip lt"><img src="/assets/logos/bigcommerce.svg" alt="" width="20" height="20" loading="lazy"><span>BigCommerce</span></li><li class="lchip lt"><span>Headless</span></li></ul></div>
         </div>
-        <a class="btn btn-navy" href="#contact" data-pick="ecommerce" data-cta="service_ecommerce">Let’s talk</a>
+        <div class="svc-actions">
+          <a class="btn btn-navy" href="/?area=ecommerce#contact" data-pick="ecommerce" data-cta="service_ecommerce">Let’s talk</a>
+          <a class="qlink" href="/services/ecommerce-tracking">Explore ecommerce tracking</a>
+        </div>
       </article>
 
-      <article class="svc-panel" role="tabpanel" id="sp-data" aria-labelledby="st-data" hidden>
+      <article class="svc-panel" role="tabpanel" id="sp-server-side" aria-labelledby="st-server-side" hidden>
+        <h3>Server-side tracking</h3>
+        <p class="outcome">Recover lost conversions and feed ad platforms accurate data.</p>
+        <p>We set up server-side Google Tag Manager (tracking sent from a server you control, not the visitor’s browser) on your own subdomain, with deduplication and consent built in. Better match quality, more recovered conversions and more control over what data leaves your site.</p>
+        <div class="svc-cols">
+          <div><h4>You get</h4><ul class="ticks"><li>sGTM on Google Cloud, Stape or your own servers</li><li>First-party subdomain and cookie setup</li><li>Server events for Meta, TikTok, LinkedIn and Google Ads</li><li>Deduplication and PII hashing checks</li></ul></div>
+          <div><h4>Tools</h4><ul class="logo-chips"><li class="lchip lt"><img src="/assets/logos/sgtm.svg" alt="" width="20" height="20" loading="lazy"><span>Server-side GTM</span></li><li class="lchip lt"><span>Google Cloud</span></li><li class="lchip"><img class="lc" src="/assets/logos/carousel/rudderstack.webp" alt="" width="120" height="33" loading="lazy" decoding="async"><span class="sr">RudderStack</span></li><li class="lchip"><img class="lc" src="/assets/logos/carousel/segment.webp" alt="" width="120" height="33" loading="lazy" decoding="async"><span class="sr">Segment</span></li></ul></div>
+        </div>
+        <div class="svc-actions">
+          <a class="btn btn-navy" href="/?area=server-side#contact" data-pick="server-side" data-cta="service_server-side">Let’s talk</a>
+          <a class="qlink" href="/services/server-side-tracking">Explore server-side tracking</a>
+        </div>
+      </article>
+
+      <article class="svc-panel" role="tabpanel" id="sp-consent" aria-labelledby="st-consent" hidden>
+        <h3>Consent and privacy</h3>
+        <p class="outcome">Compliant and still measured.</p>
+        <p>We configure your consent management platform (CMP, the tool behind your cookie banner) and Google Consent Mode v2 so tags respect each visitor’s choice in every region, then prove it with tests. Compliance you can show, without losing the measurement you’re allowed to keep.</p>
+        <div class="svc-cols">
+          <div><h4>You get</h4><ul class="ticks"><li>CMP set-up or migration with region rules</li><li>Consent Mode v2, basic or advanced</li><li>Tag-by-tag consent mapping in GTM</li><li>Before- and after-consent test evidence</li></ul></div>
+          <div><h4>Tools</h4><ul class="logo-chips"><li class="lchip"><img class="lc" src="/assets/logos/carousel/cookiebot.webp" alt="" width="120" height="33" loading="lazy" decoding="async"><span class="sr">Cookiebot</span></li><li class="lchip"><img class="lc" src="/assets/logos/carousel/onetrust.webp" alt="" width="120" height="33" loading="lazy" decoding="async"><span class="sr">OneTrust</span></li><li class="lchip lt"><span>Usercentrics</span></li><li class="lchip lt"><span>Termly</span></li></ul></div>
+        </div>
+        <div class="svc-actions">
+          <a class="btn btn-navy" href="/?area=consent#contact" data-pick="consent" data-cta="service_consent">Let’s talk</a>
+          <a class="qlink" href="/services/consent-and-privacy">Explore consent and privacy</a>
+        </div>
+      </article>
+
+      <article class="svc-panel" role="tabpanel" id="sp-ad-platforms" aria-labelledby="st-ad-platforms" hidden>
+        <h3>Ad platforms</h3>
+        <p class="outcome">Every platform sees the sales you actually made.</p>
+        <p>Google, Meta, TikTok, Snapchat and LinkedIn optimise on what they’re told. We make sure they’re told the truth, using Conversions APIs (direct feeds from your server to each platform) with deduplication so nothing is counted twice.</p>
+        <div class="svc-cols">
+          <div><h4>You get</h4><ul class="ticks"><li>Conversion tracking set up or repaired on every platform</li><li>Conversions APIs with deduplication</li><li>Offline and CRM conversions sent back</li><li>One cross-platform view, differences explained</li></ul></div>
+          <div><h4>Tools</h4><ul class="logo-chips"><li class="lchip"><img class="lc" src="/assets/logos/carousel/google-ads.webp" alt="" width="120" height="33" loading="lazy" decoding="async"><span class="sr">Google Ads</span></li><li class="lchip"><img class="lc" src="/assets/logos/carousel/meta.webp" alt="" width="120" height="33" loading="lazy" decoding="async"><span class="sr">Meta Ads</span></li><li class="lchip"><img class="lc" src="/assets/logos/carousel/tiktok.webp" alt="" width="120" height="33" loading="lazy" decoding="async"><span class="sr">TikTok Ads</span></li><li class="lchip lt"><span>Snapchat Ads</span></li><li class="lchip"><img class="lc" src="/assets/logos/carousel/linkedin.webp" alt="" width="120" height="33" loading="lazy" decoding="async"><span class="sr">LinkedIn Ads</span></li><li class="lchip lt"><span>Pinterest Ads</span></li></ul></div>
+        </div>
+        <div class="svc-actions">
+          <a class="btn btn-navy" href="/?area=ad-platforms#contact" data-pick="ad-platforms" data-cta="service_ad-platforms">Let’s talk</a>
+          <a class="qlink" href="/services/ad-platforms">Explore ad platforms</a>
+        </div>
+      </article>
+
+      <article class="svc-panel" role="tabpanel" id="sp-reporting" aria-labelledby="st-reporting" hidden>
         <h3>Data and reporting</h3>
         <p class="outcome">Warehouses and dashboards people trust.</p>
         <p>We bring analytics, ads and order data into one warehouse (a single place where your data is stored and joined), model it so the numbers reconcile, and build dashboards people actually use.</p>
         <div class="svc-cols">
           <div><h4>You get</h4><ul class="ticks"><li>BigQuery export set up and explained</li><li>dbt models with tested definitions</li><li>Dashboards for leadership and channel teams</li><li>A plan for CDP vs warehouse-first</li></ul></div>
-          <div><h4>Tools</h4><ul class="tool-chips"><li><img src="/assets/logos/bigquery.svg" alt="" width="24" height="24" loading="lazy" decoding="async">BigQuery</li><li><img src="/assets/logos/snowflake.svg" alt="" width="24" height="24" loading="lazy" decoding="async">Snowflake</li><li><span class="logo-fallback" aria-hidden="true">DB</span>dbt</li><li><img src="/assets/logos/looker.svg" alt="" width="24" height="24" loading="lazy" decoding="async">Looker Studio</li><li><span class="logo-fallback" aria-hidden="true">PB</span>Power BI</li><li><span class="logo-fallback" aria-hidden="true">TA</span>Tableau</li></ul></div>
+          <div><h4>Tools</h4><ul class="logo-chips"><li class="lchip"><img class="lc" src="/assets/logos/carousel/looker.webp" alt="" width="120" height="33" loading="lazy" decoding="async"><span class="sr">Looker Studio</span></li><li class="lchip"><img class="lc" src="/assets/logos/carousel/powerbi.webp" alt="" width="120" height="33" loading="lazy" decoding="async"><span class="sr">Power BI</span></li><li class="lchip"><img class="lc" src="/assets/logos/carousel/bigquery.webp" alt="" width="120" height="33" loading="lazy" decoding="async"><span class="sr">BigQuery</span></li><li class="lchip"><img class="lc" src="/assets/logos/carousel/snowflake.webp" alt="" width="120" height="33" loading="lazy" decoding="async"><span class="sr">Snowflake</span></li><li class="lchip lt"><span>dbt</span></li></ul></div>
         </div>
-        <a class="btn btn-navy" href="#contact" data-pick="data" data-cta="service_data">Let’s talk</a>
+        <div class="svc-actions">
+          <a class="btn btn-navy" href="/?area=reporting#contact" data-pick="reporting" data-cta="service_reporting">Let’s talk</a>
+          <a class="qlink" href="/services/data-and-reporting">Explore data and reporting</a>
+        </div>
       </article>
     </div>
     <p class="platform-more">Don’t see your platform? <a href="#contact" data-cta="services_other">Ask us.</a></p>
@@ -614,14 +651,17 @@
       <fieldset class="fstep" data-step="1">
         <legend>What needs fixing? <span class="opt">Pick any</span></legend>
         <div class="pick-grid">
-          <label class="pick"><input type="checkbox" name="services" value="Measure and tags" data-key="ga4"><span>Measure and tags</span></label>
-          <label class="pick"><input type="checkbox" name="services" value="Server-side & CAPI" data-key="server-side"><span>Server-side &amp; CAPI</span></label>
-          <label class="pick"><input type="checkbox" name="services" value="Consent & CMP" data-key="consent"><span>Consent &amp; CMP</span></label>
+          <label class="pick"><input type="checkbox" name="services" value="Analytics and tag management" data-key="analytics"><span>Analytics and tag management</span></label>
           <label class="pick"><input type="checkbox" name="services" value="App tracking" data-key="app"><span>App tracking</span></label>
-          <label class="pick"><input type="checkbox" name="services" value="Ecommerce" data-key="ecommerce"><span>Ecommerce</span></label>
-          <label class="pick"><input type="checkbox" name="services" value="Data & reporting" data-key="data"><span>Data &amp; reporting</span></label>
+          <label class="pick"><input type="checkbox" name="services" value="Ecommerce tracking" data-key="ecommerce"><span>Ecommerce tracking</span></label>
+          <label class="pick"><input type="checkbox" name="services" value="Server-side tracking" data-key="server-side"><span>Server-side tracking</span></label>
+          <label class="pick"><input type="checkbox" name="services" value="Consent and privacy" data-key="consent"><span>Consent and privacy</span></label>
+          <label class="pick"><input type="checkbox" name="services" value="Ad platforms" data-key="ad-platforms"><span>Ad platforms</span></label>
+          <label class="pick"><input type="checkbox" name="services" value="Data and reporting" data-key="reporting"><span>Data and reporting</span></label>
           <label class="pick pick-wide"><input type="checkbox" name="services" value="Not sure yet" data-key="unsure"><span>Not sure yet</span></label>
         </div>
+
+        <p class="legend2"</div>
 
         <p class="legend2" id="stageLegend">Where are you today? <span class="opt">Optional</span></p>
         <div class="seg" role="radiogroup" aria-labelledby="stageLegend">
@@ -677,27 +717,27 @@
     </div>
     <nav aria-label="What we do">
       <p class="foot-h">What we do</p>
-      <!-- TODO: link to service pages when built -->
-      <a href="#services" data-goto="ga4">Measure and tags</a>
-      <a href="#services" data-goto="server-side">Server-side and conversions</a>
-      <a href="#services" data-goto="consent">Consent and privacy</a>
-      <a href="#services" data-goto="app">App tracking</a>
-      <a href="#services" data-goto="ecommerce">Ecommerce</a>
-      <a href="#services" data-goto="data">Data and reporting</a>
+      <a href="/services/analytics-and-tags">Analytics and tag management</a>
+      <a href="/services/app-tracking">App tracking</a>
+      <a href="/services/ecommerce-tracking">Ecommerce tracking</a>
+      <a href="/services/server-side-tracking">Server-side tracking</a>
+      <a href="/services/consent-and-privacy">Consent and privacy</a>
+      <a href="/services/ad-platforms">Ad platforms</a>
+      <a href="/services/data-and-reporting">Data and reporting</a>
     </nav>
     <nav aria-label="Company">
       <p class="foot-h">Company</p>
-      <a href="#process">How it works</a>
-      <a href="#sectors">Sectors</a>
-      <!-- <a href="#team">Team</a> (restore with the #team section) -->
-      <a href="#faq">FAQ</a>
-      <a href="#contact">Contact</a>
+      <a href="/#process">How it works</a>
+      <a href="/#sectors">Sectors</a>
+      <!-- <a href="/#team">Team</a> (restore with the #team section) -->
+      <a href="/#faq">FAQ</a>
+      <a href="/#contact">Contact</a>
     </nav>
     <div>
       <p class="foot-h">Say hi</p>
       <a class="foot-link" href="mailto:admin@fixifydata.xyz" data-outbound="email">admin@fixifydata.xyz</a>
       <a class="foot-link" href="https://www.linkedin.com/company/fixifydata" target="_blank" rel="noopener" data-outbound="linkedin">LinkedIn</a>
-      <a class="btn btn-gold foot-cta" href="#contact" data-cta="footer">Let’s talk</a>
+      <a class="btn btn-gold foot-cta" href="/#contact" data-cta="footer">Let’s talk</a>
     </div>
   </div>
   <div class="wrap footer-base">
@@ -707,9 +747,10 @@
   <div class="wrap"><p class="tm-note">All product names and logos are trademarks of their respective owners. Use does not imply endorsement.</p></div>
 </footer>
 
-<div class="sticky-cta" id="stickyCta"><a class="btn btn-gold btn-block" href="#contact" data-cta="sticky">Let’s talk</a></div>
+<div class="sticky-cta" id="stickyCta"><a class="btn btn-gold btn-block" href="/#contact" data-cta="sticky">Let’s talk</a></div>
 
 <script src="/consent.js" defer></script>
+<script src="/site.js" defer></script>
 <script src="/main.js" defer></script>
 </body>
 </html>

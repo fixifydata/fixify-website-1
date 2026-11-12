@@ -1,23 +1,49 @@
 # Fixify website
 
-Single-page site for **fixifydata.xyz**. Plain HTML/CSS/JS (no build step) plus one Vercel serverless function for the contact form.
+Multi-page site for **fixifydata.xyz**. Static HTML/CSS/JS plus one Vercel serverless function for the contact form. The page files are committed, so Vercel needs no build step.
 
 ```
-index.html          homepage: all content in the initial HTML, SEO meta, one JSON-LD @graph
-styles.css          theme + responsive layout
-main.js             tabs, two-step form, mobile bar, analytics events
-consent.js          cookie banner, Consent Mode v2, loads GTM only after consent
-api/contact.js      POST /api/contact -> saves each lead to Google Sheets
-apps-script/        Code.gs for the Google Sheet (stores leads, emails admin)
-privacy-policy/     draft privacy policy (needs legal review)
-cookie-policy/      draft cookie policy (needs legal review)
-404.html            not-found page
-assets/             logos (WebP + PNG), favicons, social card, assets/logos/*.svg platform marks
-docs/               tracking plan, text changes, QA report, REPLACE-BEFORE-LAUNCH list
+index.html              homepage (all content in the initial HTML, one JSON-LD @graph)
+services/<service>/     seven service pages (generated, see below)
+privacy-policy/         draft privacy policy (needs legal review)
+cookie-policy/          draft cookie policy (needs legal review)
+404.html                not-found page
+styles.css              theme + responsive layout
+site.js                 every page: header menu + Services dropdown, mobile bar, analytics events
+main.js                 homepage only: tabs, two-step form
+consent.js              cookie banner, Consent Mode v2, loads GTM only after consent
+api/contact.js          POST /api/contact -> saves each lead to Google Sheets
+apps-script/            Code.gs for the Google Sheet (stores leads, emails admin)
+scripts/                page generator (see "Editing content")
+assets/                 logos, favicons, social card; assets/logos/carousel/ = tool logos
+docs/                   tracking plan, text changes, QA report, REPLACE-BEFORE-LAUNCH list
 robots.txt, sitemap.xml, site.webmanifest, vercel.json
 ```
 
 **Before launch, read [docs/REPLACE-BEFORE-LAUNCH.md](docs/REPLACE-BEFORE-LAUNCH.md).**
+
+## Editing content
+
+The service pages, the homepage "When should you call us?" and "What we do" sections, the header dropdown, the footer and the legal pages are **generated** from `scripts/`, so a change is made once and appears everywhere.
+
+| To change | Edit |
+|---|---|
+| Service copy, FAQs, diagrams, tool lists | `scripts/data.mjs` |
+| Header, footer, logo bar, shared head tags | `scripts/shell.mjs` |
+| Homepage text outside those sections | `scripts/index.template.html` |
+| Privacy / cookie policy text | `scripts/build-pages.mjs` |
+
+Then run (Node 18 or newer, no installs needed):
+
+```
+node scripts/build.mjs && node scripts/build-pages.mjs
+```
+
+and commit the regenerated files. Do not hand-edit `index.html` or the generated pages, or your changes will be overwritten the next time the generator runs.
+
+- If you change a homepage FAQ, edit it in `scripts/build.mjs`. The `FAQPage` JSON-LD is built from the same list, so the two always match.
+- Team and Proof sections are commented out in the homepage template until real material exists.
+- Tool logos live in `assets/logos/carousel/<id>.webp`. All are 400×110 on white so they display at the same size. New logos must use the same canvas. Keep the platform name in the hidden text beside each logo so the names stay in the HTML.
 
 ## Deploy (Vercel)
 
@@ -39,13 +65,6 @@ Each submission is added as a row, and an email goes to admin@fixifydata.xyz.
 
 GTM (`GTM-WX7FZ79N`) loads **only after a visitor accepts analytics**. Consent Mode v2 defaults are all denied. Events and the GTM setup are in [docs/TRACKING-PLAN.md](docs/TRACKING-PLAN.md).
 
-## Editing notes
-
-- The platform carousel and the FAQ are plain HTML in `index.html`. If you edit the FAQ, update the `FAQPage` JSON-LD in the `<head>` to match word for word.
-- Service links all go to `#services` for now (`TODO: link to service pages when built`).
-- Team and Proof sections are commented out in `index.html` until real material exists.
-- Carousel logos live in `assets/logos/carousel/<id>.webp` (trimmed, 96px high). To add one, copy a `<li class="logo-tile">` in `index.html`, set `width`/`height` to the image's display size, and keep the platform name in the hidden `<span class="sr">` so the text stays in the HTML.
-
 ## After launch
-- Search Console: verify the domain, submit `https://fixifydata.xyz/sitemap.xml`, run URL Inspection on `/`.
+- Search Console: verify the domain, submit `https://fixifydata.xyz/sitemap.xml`, run URL Inspection on `/` and a service page.
 - Send one real test form submission and confirm it arrives at admin@fixifydata.xyz.
