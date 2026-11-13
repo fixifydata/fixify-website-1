@@ -149,7 +149,7 @@ export function flow(id) {
     const parts = [];
     L.steps.forEach((s, k) => {
       n += 1;
-      parts.push(`<div class="fstep${s.wide ? ' wide' : ''}"${s.w ? ` style="flex-grow:${s.w}"` : ''}><p class="fh"><span class="fnum">${n}</span>${esc(s.h)}</p><div class="fnodes${s.n.length >= 4 ? ' two' : ''}">${s.n.map(node).join('')}</div><p class="fnote">${esc(s.note)}</p></div>`);
+      parts.push(`<div class="fl-step${s.wide ? ' wide' : ''}"${s.w ? ` style="flex-grow:${s.w}"` : ''}><p class="fh"><span class="fnum">${n}</span>${esc(s.h)}</p><div class="fnodes${s.n.length >= 4 ? ' two' : ''}">${s.n.map(node).join('')}</div><p class="fnote">${esc(s.note)}</p></div>`);
       if (k < L.steps.length - 1) parts.push(`<div class="farr${s.broken ? ' broken' : ''}" aria-hidden="true"><i></i></div>`);
     });
     return `<div class="flane">${L.label ? `<p class="flabel">${esc(L.label)}</p>` : ''}<div class="flow">${parts.join('')}</div>${L.back ? `<p class="fback"><span aria-hidden="true">↩</span> ${esc(L.back)}</p>` : ''}</div>`;

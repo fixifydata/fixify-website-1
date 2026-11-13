@@ -39,6 +39,12 @@ Issues found and fixed during this round: the Services dropdown closed itself wh
 - **Not verified:** real-GPU frame rate. The test browser renders WebGL in software, which renders each frame in 3–15 ms but presents frames slowly, so smoothness on real phones and laptops must be checked by eye before launch.
 - The page and form suites still pass (132/132 and 65/65), and links and layout are clean at 320–1440 px.
 
+## Regression found after the 3D round (fixed)
+
+The two-step contact form was showing **both steps at once**. The flow-diagram step cards added earlier used the class name `.fstep`, which the form's two fieldsets already used; the diagram rule set `display:flex`, which overrides the browser's `hidden` behaviour, so step 2 never hid. The earlier form tests checked the `hidden` attribute rather than whether the element was actually invisible, so they passed while the page was wrong.
+
+Fixed by renaming the diagram class to `.fl-step` (no visible change to the service pages) and adding `[hidden]{display:none!important}` as a safety net. The form suite now asserts computed `display` before and after "Next", so this cannot regress silently again: 69 checks, 0 failures.
+
 ## Not verified
 
 - **Email delivery** to admin@fixifydata.xyz. The webhook in these tests was a local stand-in for the Google Apps Script. Send one real test submission after deploying (see `REPLACE-BEFORE-LAUNCH.md`).
