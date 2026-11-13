@@ -22,6 +22,14 @@ Everything below is unverified, or needs a decision from you. Nothing was invent
 | 14 | **Header: Resources and About** (shown in your prototype) | header | **Left out.** There are no real guides or team yet, and a link to an empty page would be a placeholder. The header is Services, How it works, Sectors, FAQ, Let's talk. Say the word and I'll add them when content exists |
 | 15 | **Contact email**: your prototype shows hello@fixifydata.xyz, the live site and brief use admin@fixifydata.xyz | everywhere | **admin@fixifydata.xyz** is used throughout. Change in `scripts/shell.mjs`, `scripts/index.template.html`, `api/contact.js` and `apps-script/Code.gs` if you prefer hello@ |
 
+## 3D service visuals
+
+- Each service page has a real-time 3D scene (Three.js, MIT licence, bundled in `assets/js/scene3d.js`, licence text in `assets/js/THREE-LICENSE.txt`). They are illustrations and carry an "Illustrative animation" caption. The counters in the ecommerce scene and the charts in the reporting scene are simulated, not client data.
+- Nothing from a third party is requested at runtime: the engine, the logos and the poster images are all served from your own domain.
+- The scene loads only after a visitor scrolls or interacts, never for visitors who prefer reduced motion or who have Data Saver on, and it falls back to the still poster on slow devices or without WebGL.
+- To change a scene: edit `scripts/scene3d/scenes.js`, then `npm run build:3d` and `npm run posters` in `scripts/` (see README).
+- I could only test the scenes in software-rendered Chrome/Edge, so real-device frame rate on phones is unmeasured. Please look at one scene on a real phone and a real laptop before launch.
+
 ## Placeholders inside the legal drafts (both pages carry "[Have a lawyer review before launch.]")
 
 - `/privacy-policy`: `[DATE]`, `[LEGAL ENTITY NAME, REGISTRATION NUMBER]`, `[LOCATION]`, retention periods (`[X months]`, `[X years]`, `[X months]`), international-transfer mechanism per provider.

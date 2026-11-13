@@ -45,6 +45,20 @@ and commit the regenerated files. Do not hand-edit `index.html` or the generated
 - Team and Proof sections are commented out in the homepage template until real material exists.
 - Tool logos live in `assets/logos/carousel/<id>.webp`. All are 400×110 on white so they display at the same size. New logos must use the same canvas. Keep the platform name in the hidden text beside each logo so the names stay in the HTML.
 
+## 3D service visuals
+
+Each service page's hero is a real-time 3D scene (Three.js). Visitors see a still poster first; the live scene fades in after they scroll or interact, and is skipped for reduced motion, Data Saver, no WebGL, or slow devices.
+
+```
+scripts/scene3d/engine.js   renderer, lighting, stage, logo cards, glass pipes, data packets, labels
+scripts/scene3d/scenes.js   the seven scenes (one function each)
+scripts/scene3d/entry.js    mounts a scene, runs the loop, frame-rate governor
+assets/js/scene3d.js        the built bundle the site loads (committed)
+assets/scenes/<id>.webp     the still posters (committed)
+```
+
+To change a scene, from the `scripts/` folder: `npm install`, edit `scene3d/scenes.js`, then `npm run build:3d` (rebuilds the bundle) and `BROWSER="<path to Chrome or Edge>" npm run posters` (regenerates the stills). Commit the results, and bump the `?v=1` on the scene bundle and posters (in `site.js` and `scripts/build-pages.mjs`), because everything under `/assets/` is cached for a year. Logos used in the scenes are the 400x110 files in `assets/logos/carousel/`.
+
 ## Deploy (Vercel)
 
 1. Import the GitHub repo in Vercel. Framework preset: **Other**. No build command.

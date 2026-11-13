@@ -65,5 +65,37 @@
     });
   }, { passive: true });
 
+  /* ---------- 3D hero visual (service pages) ----------
+     The still poster shows at once. The live WebGL scene is fetched only after a real gesture
+     (scroll, wheel, tap, click, key or sustained mouse movement), and never for a visitor who
+     prefers reduced motion or has Data Saver on. Without WebGL, mounting fails and the poster stays. */
+  var v3 = $('.hero-visual3d');
+  if (v3) {
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var saveData = navigator.connection && navigator.connection.saveData;
+    if (!reduceMotion && !saveData) {
+      var started = false, moves = 0;
+      var EVENTS = ['wheel', 'touchstart', 'pointerdown', 'keydown', 'pointermove', 'scroll'];
+      var go = function (e) {
+        // A scroll event at the very top can fire without the visitor doing anything (scroll restoration),
+        // so only treat scrolling as a gesture once the page has actually moved.
+        if (e && e.type === 'scroll' && window.scrollY < 40) return;
+        // A real mouse produces a stream of pointermove events; a single stray one is not a gesture.
+        if (e && e.type === 'pointermove' && ++moves < 3) return;
+        if (started) return;
+        started = true;
+        EVENTS.forEach(function (ev) { window.removeEventListener(ev, go); });
+        if (v3.getBoundingClientRect().bottom < -200) return; // already scrolled past: never build it
+        // If the browser has no WebGL, mounting throws and the still poster simply stays.
+        import('/assets/js/scene3d.js?v=1').then(function (m) {
+          var s = m.mount(v3, v3.dataset.scene);
+          window.__scene3d = s;
+          return s.ready.then(function () { s.renderAt(1.2); v3.classList.add('is-live'); s.start(); });
+        }).catch(function () { /* keep the poster */ });
+      };
+      EVENTS.forEach(function (ev) { window.addEventListener(ev, go, { passive: true }); });
+    }
+  }
+
   var yr = $('#yr'); if (yr) yr.textContent = new Date().getFullYear();
 })();

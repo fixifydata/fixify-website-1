@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { head, header, footer, scripts, esc, S, by, url, ORDER, flow, chips } from './shell.mjs';
-import { P2, F, SLUG } from './data.mjs';
+import { P2, F, SLUG, FLOW } from './data.mjs';
 const REPO = fileURLToPath(new URL('..', import.meta.url)).replace(/[\/]$/, '');
 const wrap = (hd, hdr, main, extra) => `${hd}\n<body>\n${hdr}\n${main}\n${footer()}\n${scripts(extra || '')}\n</body>\n</html>\n`;
 const draft = `    <p class="draft">[Have a lawyer review before launch.] This is a plain-English draft, not legal advice.</p>`;
@@ -99,13 +99,21 @@ function servicePage(id) {
     { '@type': 'FAQPage', mainEntity: faqs.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) }] }, null, 2) + `\n</script>`;
   const main = `<main id="main" class="svc-page">
 <section class="page-hero">
-  <div class="wrap">
+  <div class="wrap ph-grid">
+   <div class="ph-copy">
     <nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a> <span aria-hidden="true">/</span> <a href="/#services">Services</a> <span aria-hidden="true">/</span> <span aria-current="page">${esc(s[1])}</span></nav>
     <p class="eyebrow">${esc(s[1])}</p>
     <h1>${esc(s[2])}.</h1>
     <p class="lede">${esc(s[3])}</p>
     <div class="hero-actions"><a href="/?area=${id}#contact" class="btn btn-gold btn-lg" data-cta="service_page_hero">Let’s talk</a></div>
     <ul class="pill-list"><li>Best for ${esc(d.b)}</li><li>Read-only access to start</li><li>Your accounts stay yours</li></ul>
+   </div>
+   <div class="hero-visual3d" data-scene="${id}" role="img" aria-label="${esc('Animated 3D illustration. ' + FLOW[id].intro + ' ' + FLOW[id].foot)}">
+     <img class="v3-poster" src="/assets/scenes/${id}.webp?v=1" srcset="/assets/scenes/${id}-700.webp?v=1 700w, /assets/scenes/${id}.webp?v=1 1200w" sizes="(max-width: 1000px) 94vw, 640px" width="1200" height="800" alt="" fetchpriority="high" decoding="async">
+     <canvas class="v3-canvas" aria-hidden="true"></canvas>
+     <div class="v3-labels" aria-hidden="true"></div>
+     <p class="v3-note">Illustrative animation</p>
+   </div>
   </div>
 </section>
 

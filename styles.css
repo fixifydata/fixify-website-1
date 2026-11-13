@@ -577,3 +577,46 @@ html.menu-open .sticky-cta{display:none!important}
 .svc-page .sec:first-of-type{content-visibility:visible}
 /* Cookie banner: system font so it never reflows when web fonts load */
 .cc,.cc .cc-title,.cc .btn{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+
+/* ===== 3D service visuals ===== */
+.ph-grid{display:grid;grid-template-columns:minmax(0,.88fr) minmax(0,1.32fr);gap:clamp(20px,3vw,44px);align-items:center}
+.page-hero .ph-copy h1{font-size:clamp(36px,4.6vw,64px);max-width:13ch}
+.hero-visual3d{position:relative;width:100%;aspect-ratio:3/2;border-radius:22px;overflow:hidden;background:radial-gradient(70% 60% at 50% 55%,rgba(91,140,255,.16),transparent 70%)}
+.v3-poster,.v3-canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.v3-poster{object-fit:contain;transition:opacity .7s ease}
+.v3-canvas{opacity:0;transition:opacity .7s ease;touch-action:pan-y}
+.hero-visual3d.is-live .v3-canvas{opacity:1}
+.hero-visual3d.is-live .v3-poster{opacity:0}
+.v3-labels{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.hero-visual3d:not(.is-live) .v3-labels{display:none}
+.v3-label{position:absolute;left:0;top:0;white-space:nowrap;font:600 12.5px/1 var(--body);color:var(--white);background:rgba(7,18,51,.88);border:1px solid rgba(255,255,255,.28);padding:6px 11px 6px 6px;border-radius:999px;will-change:transform;box-shadow:0 4px 12px rgba(0,0,0,.3)}
+.v3-label span{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;background:var(--gold);color:var(--navy);font-size:11px;font-weight:700;margin-right:7px}
+.v3-label:not(:has(span)){padding-left:11px}
+.farr i{display:none!important}
+@media (max-width:1000px){
+  .ph-grid{grid-template-columns:1fr}
+  .hero-visual3d{aspect-ratio:3/2;max-width:760px}
+}
+@media (max-width:520px){
+  .hero-visual3d{aspect-ratio:4/3;border-radius:16px}
+  .v3-label{font-size:10.5px;padding:5px 8px 5px 5px}
+  .v3-label span{width:15px;height:15px;font-size:9.5px;margin-right:5px}
+}
+@media (prefers-reduced-motion:reduce){.v3-canvas{display:none}}
+.v3-label.bad{border-color:rgba(255,90,95,.9);color:#ffb3b5}
+.v3-label.good{border-color:rgba(25,195,125,.9);color:#9af0cb}
+
+/* "How it works" step cards (replaces the flat arrow diagram; the 3D scene is the main visual) */
+.flowfig{border:0;padding:0;background:transparent;margin-top:30px}
+.flow-title{font-size:clamp(18px,2vw,22px);color:var(--muted);font-weight:700;margin-bottom:18px}
+.flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:16px;align-items:stretch}
+.farr{display:none!important}
+.fstep{border:1.5px solid var(--navy);border-radius:6px;padding:18px 18px 20px;background:var(--white);gap:14px;transition:transform .2s ease, box-shadow .2s ease}
+.fstep:hover{transform:translate(-3px,-3px);box-shadow:6px 6px 0 var(--gold)}
+.fstep.wide{grid-column:span 2}
+.fnode{background:var(--paper)}
+.fnode .fi{mix-blend-mode:multiply}
+.fnote{margin-top:0}
+.flane+.flane{border-top:0;padding-top:6px;margin-top:26px}
+@media (max-width:700px){.fstep.wide{grid-column:auto}}
+.v3-note{position:absolute;left:12px;bottom:10px;margin:0;font-size:11.5px;color:rgba(232,236,248,.78);background:rgba(7,18,51,.55);border-radius:999px;padding:3px 10px;pointer-events:none}
